@@ -1,0 +1,232 @@
+<div class="page_wrapper">
+    <div class="hero-section">
+        <div class="header">
+            <div class="container">
+                <nav class="navbar justify-content-end navbar-expand-lg bg-light">
+                    <a class="navbar-brand" href="#" [routerLink]="['/']">
+                        <img src="/assets/img/donate/donary-logo.svg" width="150" class="logo-img" alt="" />
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse form-inline my-2 my-lg-0" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" [href]="ProductAndPlanLink">{{'PRODUCTSPLAN' |
+                                    translate}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link calendy_link" href="#" [routerLink]="getScheduleDemoRoute()"
+                                    id="calendyHeader">{{'SHEDULEDEMO' | translate}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" [routerLink]="getDonateRoute()" fragment="contact">{{'CONTACT' |
+                                    translate}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a class="nav-link user" href="https://drm.donary.com/" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                        </svg>
+                    </a>
+                </nav>
+            </div>
+        </div>
+        <div class="banner-content">
+            <div class="container">
+                <div class="row">
+                    <div class="left_content col-md-4">
+                        <h1>{{'SMARTFOUNDRAISING' | translate}}</h1>
+                        <p>{{'DONARYOFFER' | translate}}</p>
+                        <div class="btns">
+                            <a [href]="ProductAndPlanLink">
+                                <button class="btn btn-primary">
+                                    {{'SEEPRODUCTPLAN' | translate }}
+                                </button>
+                            </a>
+                            <a [routerLink]="['/']" fragment="contact" id="contact_link2"><button
+                                    class="btn btn-default">{{'CONTACTUS' | translate}}</button></a>
+                        </div>
+                    </div>
+                    <div class="right-content col-md-8">
+                        <img src="/assets/img/donate/banner-img.png" width="100%" alt="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="connect-section" id="contact" #contact>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 iframe-section d-md-block d-none" [class.map-img]="isMapImg" (click)="mapToggle()">
+                    <ng-container *ngIf="isMapImg">
+                        <img src="/assets/img/donate/home-map.png" width="100%" height="585px"
+                            style="object-fit: cover;" alt="" />
+                    </ng-container>
+                    <ng-container *ngIf="!isMapImg">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3025.0447512362543!2d-73.95243268428793!3d40.69501204659086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25b4f4a19e84b%3A0x5534ccc2c44cd4a3!2sDonary!5e0!3m2!1sen!2sus!4v1634830433532!5m2!1sen!2sus"
+                            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </ng-container>
+                </div>
+                <div class="col-md-8 content-section">
+                    <div class="top-content">
+                        <h4>{{'WEAREHERE' | translate}}<br> {{'TOHELP' | translate}}</h4>
+                        <div class="contact-details">
+                            <p><a href="#"><span class="icon"><img src="/assets/img/donate/icon-phone.png"
+                                            width="20" /></span> 718-400-7972</a></p>
+                            <p><a href="#"><span class="icon"><img src="/assets/img/donate/mail-icon.png"
+                                            width="20" /></span> info&#64;donary.com</a></p>
+                            <p><span class="icon"><img src="/assets/img/donate/icon-location.png"
+                                        width="20" /></span>{{'ADDRESSVALUE' | translate}}</p>
+                        </div>
+                    </div>
+                    <div class="iframe-section d-md-none d-block" [class.map-img]="isMapImg" (click)="mapToggle()">
+                        <ng-container *ngIf="isMapImg">
+                            <img src="/assets/img/donate/home-map.png" width="100%" height="585px"
+                                style="object-fit: cover;" alt="" />
+                        </ng-container>
+                        <ng-container *ngIf="!isMapImg">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3025.0447512362543!2d-73.95243268428793!3d40.69501204659086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25b4f4a19e84b%3A0x5534ccc2c44cd4a3!2sDonary!5e0!3m2!1sen!2sus!4v1634830433532!5m2!1sen!2sus"
+                                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </ng-container>
+                    </div>
+                    <div class="card">
+                        <div class="custom_success" *ngIf="alertMessage" [class.error]="alertType === 'danger'">
+                            <ngb-alert *ngIf="alertMessage" [type]="alertType" role="alert" (close)="alertMessage = ''">
+                                {{ alertMessage }}
+                            </ngb-alert>
+                        </div>
+                        <form id="form_contact_us" name="form_contact_us" [formGroup]="contactFormGroup"
+                            class="horizontal-form isautovalid" (keyup.enter)="onContactSubmit()"
+                            (ngSubmit)="onContactSubmit()">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="text-uppercase">{{'FULLNAME' | translate}}:</label>
+                                    <input type="text" class="form-control required" name="full_name" id="full_name"
+                                        formControlName="FullName" />
+                                    <ng-container *ngIf="fullName?.touched && fullName?.invalid">
+                                        <label for="full_name" class="error">
+                                            <ng-template [ngTemplateOutlet]="errorMsg"
+                                                [ngTemplateOutletContext]="{ errors: fullName?.errors }"></ng-template>
+                                        </label>
+                                    </ng-container>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="text-uppercase">{{'EMAILADDRESS' | translate}}:</label>
+                                    <input type="text" class="form-control required emailcustom" name="email" id="email"
+                                        formControlName="EmailAddress" />
+                                    <ng-container *ngIf="emailAddress?.touched && emailAddress?.invalid">
+                                        <label for="email" class="error">
+                                            <ng-template [ngTemplateOutlet]="errorMsg"
+                                                [ngTemplateOutletContext]="{ errors: emailAddress?.errors }"></ng-template>
+                                        </label>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="text-uppercase">{{'PHONENUMBER' | translate}}:</label>
+                                    <input type="tel" [validation]="true" [mask]="phoneMask"
+                                        class="form-control required" name="phone" id="phone"
+                                        formControlName="PhoneNumber" />
+                                    <ng-container *ngIf="phoneNumber?.touched && phoneNumber?.invalid">
+                                        <label for="phone" class="error">
+                                            <ng-template [ngTemplateOutlet]="errorMsg"
+                                                [ngTemplateOutletContext]="{ errors: phoneNumber?.errors }"></ng-template>
+                                        </label>
+                                    </ng-container>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="text-uppercase">{{'SUBJECT' | translate}}:</label>
+                                    <input type="text" class="form-control required" name="subject" id="subject"
+                                        formControlName="Subject" />
+                                    <ng-container *ngIf="subject?.touched && subject?.invalid">
+                                        <label for="subject" class="error">
+                                            <ng-template [ngTemplateOutlet]="errorMsg"
+                                                [ngTemplateOutletContext]="{ errors: subject?.errors }"></ng-template>
+                                        </label>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="text-uppercase">{{'MESSAGE' | translate}}:</label>
+                                    <textarea class="textarea-control required" name="message" id="message"
+                                        formControlName="Body"></textarea>
+                                    <ng-container *ngIf="msgBody?.touched && msgBody?.invalid">
+                                        <label for="message" class="error">
+                                            <ng-template [ngTemplateOutlet]="errorMsg"
+                                                [ngTemplateOutletContext]="{ errors: msgBody?.errors }"></ng-template>
+                                        </label>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="form-group justify-content-end mb-0">
+                                <div class="action-group actions_buttons" [class.loading]="isLoading">
+                                    <div class="attach-file">
+                                        <input type="file" id="customFile" class="custom-file-input" name="custom_file"
+                                            (change)="getBase64String($event)">
+                                        <label for="customFile">{{'ATTACHEDFILE' | translate}}</label>
+                                    </div>
+                                    <button type="submit" [disabled]="isLoading" class="btn btn-primary">
+                                        <span><ng-container *ngIf="!isLoading">{{'SUBMIT' |
+                                                translate}}</ng-container></span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </form>
+                        <!-- {{ contactFormGroup.value | json }} -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="schedule-section">
+        <div class="container">
+            <div class="inside-content">
+                <h3>{{'SCHEDULEDEMO' | translate}}</h3>
+                <p>{{'DISCOVERTOOL' | translate}}</p>
+                <div class="btn btn-primary calendy_button" (click)="openSchedule()">{{'SHEDULE' | translate}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="copyright">
+                    &copy; {{currentYear}} Donary.com <span>
+                        {{'SMARTFUNDRAIS' | translate}} <sup>{{'TM' |
+                            translate}}</sup></span>
+                </div>
+                <div class="links">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #errorMsg let-errors="errors">
+    <ng-container *ngIf="errors">
+        <ng-container *ngIf="errors?.required">
+            {{'FIELDREQUIRED' | translate}}
+        </ng-container>
+        <ng-container *ngIf="errors?.email">
+            {{'ENTERVALIDEMAIL' | translate}}
+        </ng-container>
+        <ng-container *ngIf="errors?.mask">
+            {{'ENTERVALIDPHONE' | translate}}
+        </ng-container>
+    </ng-container>
+</ng-template>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title id="PageTitle">Donary</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Cache-control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <link rel="icon" id="faviconIcon" type="image/x-icon" href="favicon.ico" />
+
+    <script>
+      if (window.location.host.includes("toirem.org")) {
+        document.getElementById("PageTitle").innerHTML = "Toirem";
+        document.getElementById("faviconIcon").href = "favicon-toirem.ico";
+      }
+    </script>
+
+    <link
+      rel="preload"
+      href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+      />
+    </noscript>
+
+    <link
+      rel="preload"
+      href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+      />
+    </noscript>
+
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+      />
+    </noscript>
+
+    <link
+      rel="preload"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+      />
+    </noscript>
+
+    <style>
+      /* width */
+      ::-webkit-scrollbar {
+        width: 7px;
+        height: 7px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 5px;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #6c757d;
+        border-radius: 5px;
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #6c757d;
+      }
+
+      .donary_loader {
+        top: 0;
+        left: 0;
+        z-index: 999;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: url("assets/dist/images/Donary-Animation-640-480.gif")
+          no-repeat center;
+        background-color: #eeeeee;
+      }
+
+      .lottie {
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* UI Properties */
+        background: #ffffff 0% 0% no-repeat padding-box;
+        opacity: 1;
+      }
+
+      .donary-icon-lottie {
+        position: absolute;
+        bottom: 60px;
+      }
+
+      .donary-icon-lottie img {
+        max-width: 180px;
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <script>
+      // Reusable function to dynamically load a script with custom headers
+      function loadScriptWithHeaders(url, headers = {}) {
+        return fetch(url, { headers })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                `Failed to load script from ${url}. HTTP status: ${response.status}`
+              );
+            }
+            return response.text();
+          })
+          .then((scriptContent) => {
+            const script = document.createElement("script");
+            script.type = "application/javascript";
+            script.text = scriptContent;
+            document.body.appendChild(script); // Append to body
+            console.log(`Script loaded successfully from ${url}`);
+          })
+          .catch((error) => console.error("Error loading script:", error));
+      }
+
+      loadScriptWithHeaders(
+        "https://cdn.cardknox.com/ifields/2.15.2401.3101/ifields.min.js",
+        {
+          Accept: "application/javascript",
+        }
+      );
+      loadScriptWithHeaders(
+        "https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js",
+        {
+          Accept: "application/javascript",
+        }
+      );
+      loadScriptWithHeaders(
+        "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js",
+        {
+          Accept: "application/javascript",
+        }
+      );
+      loadScriptWithHeaders(
+        "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js",
+        {
+          Accept: "application/javascript",
+        }
+      );
+      loadScriptWithHeaders(
+        "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js",
+        {
+          Accept: "application/javascript",
+        }
+      );
+      loadScriptWithHeaders(
+        "https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.0/dist/index.umd.min.js",
+        {
+          Accept: "application/javascript",
+        }
+      );
+    </script>
+    <style>
+      body {
+        margin: 10px;
+      }
+
+      iframe.gp {
+        display: inline-block;
+        border: 0;
+        width: 250px;
+        height: 45px;
+        padding: 0px;
+        margin-bottom: 12px;
+        overflow: hidden;
+        position: absolute;
+      }
+
+      div.gp {
+        overflow: hidden;
+        display: inline-block;
+        overflow: hidden;
+        margin-bottom: 20px;
+      }
+
+      input {
+        border: 1px solid black;
+        font-size: 14px;
+        padding: 3px;
+        width: 243px;
+        margin-bottom: 12px;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      textarea {
+        border: 1px solid black;
+        width: 350px;
+      }
+    </style>
+  </head>
+
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+      <div class="lottie" id="loaderForApp">
+        <ng-container id="contentForToirem" style="display: none">
+          <lottie-player
+            src="/assets/dist/data/loader-animation.json"
+            background="transparent"
+            speed="1"
+            style="width: 199px; height: 199px"
+            loop
+            autoplay
+          ></lottie-player>
+        </ng-container>
+        <ng-container id="contentForOthers" style="display: none">
+          <lottie-player
+            src="/assets/dist/data/fbc68153-b8cc-49bf-80e1-d07b1df1019c.json"
+            background="transparent"
+            speed="1"
+            style="width: 199px; height: 199px"
+            loop
+            autoplay
+          ></lottie-player>
+          <div class="donary-icon-lottie">
+            <img src="/assets/dist/img/donary-icon.png" alt="" />
+          </div>
+        </ng-container>
+      </div>
+      <app-root> </app-root>
+    </div>
+
+    <link href="assets/dist/css/donate/main.css" rel="stylesheet" />
+    <link href="assets/dist/css/donate/custom.css" rel="stylesheet" />
+    <link href="assets/dist/css/donate/responsive.css" rel="stylesheet" />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- For Draggable-->
+
+    <!-- Calendly link widget begin -->
+    <link
+      href="https://assets.calendly.com/assets/external/widget.css"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="https://assets.calendly.com/assets/external/widget.js"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const isToirem = window.location.host.includes("toirem.org");
+
+        if (isToirem) {
+          document.getElementById("contentForToirem").style.display = "block";
+          document.getElementById("contentForOthers").style.display = "none";
+        } else {
+          document.getElementById("contentForToirem").style.display = "none";
+          document.getElementById("contentForOthers").style.display = "block";
+        }
+      });
+    </script>
+  </body>
+</html>

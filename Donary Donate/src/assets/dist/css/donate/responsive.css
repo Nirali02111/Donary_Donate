@@ -1,0 +1,918 @@
+@media screen and (min-width: 1200px) {
+	.container {max-width: 1180px;}
+	.donation-left .tab-content>.active {display: block;opacity: 1;}
+	.slider-details{max-width: 400px;}
+	.company-details {padding: 10px 30px 10px;}
+	.hero-slider{max-width: calc(100% - 400px);}
+	.company-progress-grid .price{margin: 0;}
+	.company-progress-grid .progress{margin: 10px 0;}
+	.company-progress-grid{margin-top: 11px;}
+	.company-progress-grid .semi-price{font-size: 24px;}
+	.company-progress-grid .price{font-size:24px;}
+	
+}
+@media screen and (min-width: 1350px) {
+	.container {max-width: 1300px;}
+	.slider-details{max-width: 400px;}
+	.company-details {padding: 20px 30px 20px;}
+	.hero-slider{max-width: calc(100% - 400px);}
+	.company-progress-grid .price{margin: 0;}
+	.company-progress-grid .progress{margin: 12px 0;}
+}
+
+@media screen and (min-width: 1600px) {
+	.container {max-width: 1545px;}
+	.hero-slider {max-width: calc(100% - 500px);width: 100%;}
+.slider-details{max-width: 500px;}
+.company-details {padding: 40px 70px 30px;}
+}
+
+@media screen and (min-width:1200px) and (max-width:1400px) {
+	.donation-grid .payment-wrapper .form_wrap {padding: 40px 10px 0;}
+}
+
+@media screen and (min-width:993px) and (max-width:1199px) {
+.donation-grid .donation-right {max-width: 100%; padding: 20px;}
+.donation-grid .donation-left{margin-bottom: 20px;max-width: 100%;}
+.donation-left .tab-content .active{opacity: 1;}
+.donation-grid.donate-wrap-center .donation-right {max-width: 100%;}
+}
+
+@media screen and (min-width:768px) and (max-width:992px) {
+	
+	.donation-grid .donation-right{
+		max-width: 100%;
+		padding:20px;
+	}
+	.donation-grid.donate-wrap-center .donation-right{max-width: 100%;}
+	.slider-details{
+		max-width: 100%;
+		padding-left:30px;
+		padding-right:30px;
+
+	}
+	.tabbing-listing li .text{
+		display: none;
+	}
+	.donation_amount{
+		flex-wrap: wrap;
+	}
+	.donation_amount .left_block{
+		margin: 0px 0 14px;
+	}
+	.tabbing-listing li a{
+		border-radius:0px;
+		justify-content: center;
+	}
+	.payment-wrapper .tabbing-listing .nav-tabs li {
+	    margin-right: 3px;
+	    flex-basis: calc(25% - 3px);
+    	max-width: calc(25% - 3px);
+    	text-align: center;
+	}
+	.payment-wrapper.no-team-wrapper .tabbing-listing .nav-tabs li{flex-basis: calc(33% - 3px);max-width: calc(34% - 3px);}
+
+	.tabbing-listing .nav-tabs li{
+		margin-right: 10px;
+	    flex-basis: calc(33% - 6px);
+	    max-width: calc(33% - 6px);
+	    text-align: center;
+    }
+	.tabbing-listing .nav-tabs li:first-child a{
+		border-radius:5px 0px 0px 5px;
+	}
+	.tabbing-listing .nav-tabs li:last-child a{
+		border-radius:0px 5px 5px 0px;
+	}
+	.left_block,
+	.right_block{
+		flex-basis:100%;
+		max-width: 100%;
+	}
+	.company-details{
+		padding:40px 30px 20px;
+	}
+	.company-title h2 {
+	    font-size: 26px;
+	    font-family:'Avenir Black';	    	
+	}
+	.company-title a{
+		font-family:'Avenir LT Std 55 Roman';
+	}
+
+	.company-progress-grid .progress{
+		height: 38px;
+	}
+	.company-progress-grid .price {
+	    font-size: 34px;
+	}
+	.company-footer span{
+		font-size: 14px;
+	}
+	.company-footer p{
+		font-size: 20px;
+	}
+	.right_block .amount{
+		margin-top: 2px;
+		line-height: 24px;
+		font-size: 17px;
+	}
+	.note{
+		margin-top: 8px;
+		display: inline-block;
+	}
+	.tabbing-listing img{
+		width:30px;
+	}
+	.next_action {
+	    padding-top: 0px !important;
+	}
+	.donation_amount .left_block h6 {
+	    font-size: 20px;
+	    margin-bottom: 10px;
+    	display: inline-block;
+	}
+	.teams-listing ul{
+		margin-bottom:0px;
+	}
+	.form_wrap label,
+	.selctdrop label{
+		font-size: 12px;
+
+	}
+	
+	.paymentMathod_wrap .form_wrap .col-6.colm_block{
+		max-width: 100%;
+		flex-basis: 100%;
+		padding-bottom: 10px;
+		padding-right:0px;
+	}
+	.paymentMathod_wrap .form_wrap .col-3.colm_block:last-child{
+		padding-right:0px;
+	}
+	.paymentMathod_wrap .form_wrap .col-3.colm_block{
+		max-width: 50%;
+		flex-basis: 50%;
+	}
+	.paymentMathod_wrap .add_note label{
+		width: 100%;
+		text-align: left;
+    	font-size: 18px;
+    	padding-bottom: 8px;
+	}
+	.paymentMathod_wrap .form_wrap{
+		flex-wrap: wrap;
+	}
+	.selctdrop select {
+	    height: 42px;
+	}
+	.paymentMathod_wrap .add_note .note_input{
+		max-width: 100%;
+		flex-basis: 100%;
+		height: 71px;
+	}
+	.paymentMathod_wrap .add_note{
+		flex-wrap: wrap;
+	}
+
+	.next_action .btn-primary{
+		width: 100%;
+	}
+	.right_block .col-block p{
+		font-size: 12px;
+	}
+	.donation_amount {
+	    display: flex;
+	    margin-top: 10px;
+	}
+	#scheduleRecurring .donation_amount{
+		flex-wrap: inherit;
+	}
+	.chooseTeam{
+		flex-wrap: wrap;
+	}
+	.left_block{
+		margin-right:0px;
+	}	
+	.right_block h6 {
+	    text-align: center;
+	}
+	.team-top p{
+		margin-bottom:4px;
+		font-size: 16px;
+	}
+	.tab-search input.form-control{
+		font-size: 16px;
+	}
+	.right_block .greyBg{
+		padding:20px 10px 14px;
+	}
+	.tabbing-listing .chooseTeam .text{
+		font-size: 14px;
+	}
+	.chooseTeam .greyBg li{
+		padding: 6px 12px 10px
+	}
+	.chooseTeam .right_block .s_amount{
+		padding: 3px 9px;	  
+	    margin: 0 4px;
+	    font-size: 14px;
+	}
+	.team-bottom span,
+	.team-top span {
+	    font-size: 12px;
+	}		
+	.chooseTeam .team-info{
+		padding: 12px 14px 16px;
+	}
+	.chooseTeam button.dismiss{
+		line-height: 16px;
+	}
+	.chooseTeam .greyBg li {
+	    padding: 10px 12px 8px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+	}
+	.selctdrop select{
+		height: 44px;
+	}	
+	.form_wrap .form-control{
+		height:46px;
+	}
+	.enter{
+		top:39px;
+	}
+	.payment-wrapper h3 {
+	    text-align: center;
+	    font-size: 24px;
+	    margin-bottom: 14px;
+	}
+	.form_wrap {
+	    padding: 30px 10px;
+	}
+	.tabbing-listing {
+	    margin-bottom:20px;
+	}
+	.donation-left .tabbing-listing li a{
+		border-radius: 99em !important;
+	}
+	.tabbing-listing li a{
+		padding: 10px 20px;
+	}
+
+
+	.tab_title{
+		position: relative;
+	}
+	.tab_title h2{
+		color:#434246;
+	}
+	.tab_title .dismiss {
+	    position: absolute;
+	    right: 10px;
+    	top: 6px;
+	    font-size: 28px;
+	    color:#A2A2A2;
+	    font-weight: 300;
+	    font-family:'Avenir LT Std 55 Roman';
+	}
+	.hero-slider{
+		max-width:100%;
+	}	
+	.hero-slider .slick-slide img{
+		max-width: 100%
+	}
+	section.donation-wrapper{
+		clear: both;
+	}
+	section.donation-wrapper{
+		margin-top:20px;
+	}	
+	.navbar-light .navbar-toggler {
+	    color: rgba(0,0,0,.9);
+	    border-color: rgba(0,0,0,.1);
+	    border: 0;
+	}
+	.paymentMathod_wrap{
+		padding-top: 40px;
+	}
+	.start-header .navbar-light .navbar-nav > li.btn-signup{
+		margin-top:8px;
+		margin-right:0px;
+	}
+	.start-header .navbar-light .navbar-nav > li.btn-login {
+	    margin-left: 10px;
+	}
+	.navbar-expand-md .navbar-collapse.show {
+	    display: block !important;
+	    position: absolute;
+	    top: 73px;
+	    left: 0px;
+	    background-color: #fff;
+	    z-index: 9;
+	    padding: 10px;
+	    width: 100%;
+	}
+	.navbar-expand-md .navbar-nav{
+		align-items: center;
+    	display: flex;
+	}
+	.navbar-expand-md .navbar-collapse:not(.show) {
+	    display: none !important;
+	}
+	.navbar-light .navbar-toggler{
+		display: block !important;
+	}
+	.navbar-expand-md{
+		justify-content: space-between;
+	}
+	
+	.donation_amount_wrapper{
+		flex-wrap: wrap;
+		padding:20px 4px;
+	}
+	.donation_amount_wrapper .left_block{
+		padding: 30px 0 10px;
+    	margin-bottom: 20px;
+	}
+	.paymentMethod_wrap{
+		padding: 20px 10px 10px;
+		max-width: 100%;
+	}
+	.paymentMethod_wrap .form_wrap{
+		flex-wrap: wrap;
+	}
+	.paymentMethod_wrap .form_wrap .colm_block {
+	    padding-left: 0px;
+	   
+	}
+	#donorInfo .form_wrap{
+		padding:20px;
+	}
+	.donation-right .tabbing-listing{
+		padding:5px;
+	}
+	.donation-left .tabbing-listing{
+		border:0px;
+	}
+	.teams-listing.chooseTeam {
+	    padding: 0px 4px 1px;
+	}
+	#donorInfo .form_wrap {
+	    padding: 20px 10px;
+	}
+	#donorInfo .form_wrap label{
+		font-size: 15px;
+	}
+	.paymentMethod_wrap .card_info{
+		padding: 20px;
+	}
+	.card_info .form_wrap label {
+	    font-size: 14px;
+	}
+	.no-campaign-data .hero-slider .slick-slide img{
+		height: 100%;
+	}
+.donation-grid .donation-left{max-width: 100%;}
+.donation-left .tab-content .active{opacity: 1;}
+}
+
+@media screen and (max-width:1199px) {
+.no-campaign-data .hero-slider{max-width: 100%}	
+.slider-details{max-width: 100%;}
+.hero-slider{max-width: 100%;}
+.tabbing-listing{background: #fff;}
+.contact-details:before {    left: -18px;}
+}
+@media screen and (max-width:991px){
+	.connect-section .top-content {flex-direction: column;}
+	.contact-details {    margin-top: 15px;padding-top: 25px;}
+	.connect-section h4 br {display: none;}
+	.contact-details:before {		left: 0;		right: 0;		height: 1px;		width: 150px;		top: 0;	}
+	.user.nav-link:before {display: none;}
+	.header button.navbar-toggler {order: 3;}
+	.hero-section nav.navbar .nav-link {order: 2;}
+	.header {border-bottom: 0;}
+}
+@media screen and (max-width:767px) {
+	.frontend-header-cstm .navbar-brand img {      max-width: 115px;  }
+    .product-details-page .container,
+    .product-list-page .frontend-header-cstm {        padding: 0 30px;    }
+    .frontend-header-cstm {        padding: 0;    }
+
+	.hero-section .navbar-brand {
+		padding: 0;
+	}
+	
+	.hero-section .navbar {
+		padding: 30px 0 20px;
+	}
+	
+	.page_wrapper .container {
+		padding: 0 30px;
+	}
+	
+	.hero-section .navbar-brand img {
+		max-width: 115px;
+	}
+	
+	.donation-grid .donation-right{
+		max-width: 100%;
+		padding:20px;
+	}
+	.donation-grid.donate-wrap-center .donation-right {max-width: 100%;}
+	.tabbing-listing li .text{
+		display: none;
+	}
+	.donation_amount{
+		flex-wrap: wrap;
+	}
+	.donation_amount .left_block{
+		margin: 0px 0 14px;
+	}
+	.tabbing-listing li a{
+		border-radius:0px;
+		justify-content: center;
+	}
+	.payment-wrapper .tabbing-listing .nav-tabs li {
+	    margin-right: 3px;
+	    flex-basis: calc(25% - 3px);
+    	max-width: calc(25% - 3px);
+    	text-align: center;
+	}
+	.payment-wrapper.no-team-wrapper .tabbing-listing .nav-tabs li{flex-basis: calc(33% - 3px);max-width: calc(34% - 3px);}
+
+	.donation-left .tabbing-listing .nav-tabs li{
+		margin-right: 10px;
+	    flex-basis: calc(33% - 6px);
+	    max-width: calc(33% - 6px);
+	    text-align: center;
+    }
+    .donation-grid .donation-left{max-width: 100%;}
+	/*.tabbing-listing .nav-tabs li:first-child button{
+		border-radius:5px 0px 0px 5px;
+	}
+	.tabbing-listing .nav-tabs li:last-child button{
+		border-radius:0px 5px 5px 0px;
+	}*/
+	.donation-wrapper .tabbing-listing li button .icon {
+		width: 29px;
+	}
+	.left_block,
+	.right_block{
+		flex-basis:100%;
+		max-width: 100%;
+	}
+	.company-details{
+		padding:30px 15px 20px;
+	}
+	.company-title h2 {
+	    font-size: 26px;
+	    font-family:'Avenir Black';	    	
+	}
+	.company-title a{
+		font-family:'Avenir LT Std 55 Roman';
+	}
+
+	.company-progress-grid .progress{
+		height: 38px;
+	}
+	.company-progress-grid .price {
+	    font-size: 24px;
+	}
+	.company-footer span{
+		font-size: 14px;
+	}
+	.company-footer p{
+		font-size: 20px;
+	}
+	.right_block .amount{
+		margin-top: 2px;
+		line-height: 24px;
+		font-size: 17px;
+	}
+	.note{
+		margin-top: 8px;
+		display: inline-block;
+	}
+	.tabbing-listing img{
+		width:30px;
+		height: 14px;
+	}
+	.tabbing-listing .open_button img {
+	    width: 20px;
+	}
+	.cards_type img {
+	    margin-top: 9px;
+	    height: auto !important;
+	}
+	.campaignBonusGoal-header {
+		flex-direction: column;
+	}
+	.next_action {
+	    padding-top: 0px !important;
+	}
+	.donation_amount .left_block h6 {
+	    font-size: 20px;
+	    margin-bottom: 10px;
+    	display: inline-block;
+	}
+	.teams-listing ul{
+		margin-bottom:0px;
+	}
+	.form_wrap label,
+	.selctdrop label{
+		font-size: 12px;
+
+	}
+	
+	.paymentMathod_wrap .form_wrap .col-6.colm_block{
+		max-width: 100%;
+		flex-basis: 100%;
+		padding-bottom: 10px;
+		padding-right:0px;
+	}
+	.paymentMathod_wrap .form_wrap .col-3.colm_block:last-child{
+		padding-right:0px;
+	}
+	.paymentMathod_wrap .form_wrap .col-3.colm_block{
+		max-width: 50%;
+		flex-basis: 50%;
+	}
+	.paymentMathod_wrap .add_note label{
+		width: 100%;
+		text-align: left;
+    	font-size: 18px;
+    	padding-bottom: 8px;
+	}
+	.paymentMathod_wrap .form_wrap{
+		flex-wrap: wrap;
+	}
+	.selctdrop select {
+	    height: 42px;
+	}
+	.paymentMathod_wrap .add_note .note_input{
+		max-width: 100%;
+		flex-basis: 100%;
+		height: 71px;
+	}
+	.paymentMathod_wrap .add_note{
+		flex-wrap: wrap;
+	}
+
+	.next_action .btn-primary{
+		width: 100%;
+	}
+	.right_block .col-block p{
+		font-size: 12px;
+	}
+	.donation_amount {
+	    display: flex;
+	    margin-top: 10px;
+	}
+	#scheduleRecurring .donation_amount{
+		flex-wrap: inherit;
+	}
+	.chooseTeam{
+		flex-wrap: wrap;
+	}
+	.left_block{
+		margin-right:0px;
+	}	
+	.right_block h6 {
+	    text-align: center;
+	}
+	.team-top p{
+		margin-bottom:4px;
+		font-size: 14px;
+	}
+	.tab-search input.form-control{
+		font-size: 16px;
+	}
+	.right_block .greyBg{
+		padding:20px 10px 14px;
+	}
+	.tabbing-listing .chooseTeam .text{
+		font-size: 14px;
+	}
+	.chooseTeam .greyBg li{
+		padding: 6px 12px 10px
+	}
+	.chooseTeam .right_block .s_amount{
+		padding: 3px 9px;	  
+	    margin: 0 4px;
+	    font-size: 14px;
+	}
+	.team-bottom span,
+	.team-top span {
+	    font-size: 12px;
+	}		
+	.chooseTeam .team-info{
+		padding: 12px 14px 16px;
+	}
+	.chooseTeam button.dismiss{
+		line-height: 16px;
+	}
+	.donation_amount_main .amount {
+	    font-size: 40px;
+	    line-height: 40px;
+	}
+	.modal-header .close {
+	    position: absolute;
+	    right: 40px;
+	    font-size: 30px;
+	    font-weight: 300;
+	    font-family: 'Avenir LT Std 55 Roman';
+	    padding: 0;
+	    top: 40px;
+	}
+	.modal .btn.btn-secondary{
+		width: 140px;
+	}
+	.modal .btn.btn-primary{
+		min-width: 160px;
+		padding:0 12px;
+	}
+	.grey_box{
+		padding:20px;
+	}
+	.modal-body {
+	    padding: 10px 20px;
+	}
+	.modal-header .modal-title{
+		padding-top:5px;
+	}
+	.amount{
+		font-size: 30px;
+	}
+	.highlight_text h3{
+		font-size: 30px;
+    	margin-bottom: 14px;
+	}
+	.highlight_text p.icon img {
+	    max-width: 40%;
+	}
+	.chooseTeam .greyBg li {
+	    padding: 10px 12px 8px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+	}
+	.selctdrop select{
+		height: 44px;
+	}	
+	.form_wrap .form-control{
+		height:46px;
+	}
+	.enter{
+		top:39px;
+	}
+	.payment-wrapper h3 {
+	    text-align: center;
+	    font-size: 24px;
+	    margin-bottom: 14px;
+	}
+	.form_wrap {
+	    padding: 30px 10px;
+	}
+	.tabbing-listing {
+	    padding: 0;
+	    margin-bottom:20px;
+	    background-color: transparent;
+	}
+	.donation-left .tabbing-listing li a{
+		border-radius: 99em !important;
+	}
+	.tabbing-listing li a{
+		padding: 10px 20px;
+	}
+	.tab_title {
+	    display: flex;
+	    justify-content: center;
+	    padding:10px 10px 0px;
+	}
+	.donation-grid .donation-left .tab-pane {
+	    left: 0;
+	    width: 100%;
+	    background: #f9f9f9;
+	    overflow-y: auto;
+	}
+	.tab_title{
+		position: relative;
+	}
+	.tab_title h2{
+		color:#434246;
+	}
+	.tab_title .dismiss {
+	    position: absolute;
+	    right: 10px;
+    	top: 6px;
+	    font-size: 28px;
+	    color:#A2A2A2;
+	    font-weight: 300;
+	    font-family:'Avenir LT Std 55 Roman';
+	}
+	.hero-slider{
+		max-width:100%;
+	}	
+	.hero-slider .slick-slide img{
+		max-width: 100%
+	}
+	section.donation-wrapper{
+		clear: both;
+	}
+	section.donation-wrapper{
+		margin-top:20px;
+	}	
+	.navbar-light .navbar-toggler {
+	    color: rgba(0,0,0,.9);
+	    border-color: rgba(0,0,0,.1);
+	    border: 0;
+	}
+	.paymentMathod_wrap{
+		padding-top: 40px;
+	}
+	.start-header .navbar-light .navbar-nav > li.btn-signup{
+		margin-top:0px;
+		margin-right:0px;
+	}
+	.start-header .navbar-light .navbar-nav > li.btn-login{
+		margin-top: 12px;
+		margin-bottom:12px;
+	}
+	.donation-grid .donation-left .tab-pane.active.show{
+		display: block;
+	}
+	.donation-grid .donation-left .overlay .tab-content:before{
+		content: "";
+	    top: 0;
+	    left: 0;
+	    background-color: rgba(0,0,0,0.45);
+	    position: fixed;
+	    width: 100%;
+	    height: 100%;
+	    z-index: 9;
+	}
+	#Subscription-Form-Popup .constant-contact-div {
+	    width: 100%;
+	    display: inline-block;
+	    margin-right: 2%;
+	}	
+	.donation_amount_wrapper{
+		flex-wrap: wrap;
+		padding:20px 4px;
+	}
+	.donation_amount_wrapper .left_block{
+		padding: 30px 0 10px;
+    	margin-bottom: 20px;
+	}
+	.paymentMethod_wrap{
+		padding: 20px 10px 10px;
+		max-width: 100%;
+	}
+	.paymentMethod_wrap .form_wrap{
+		flex-wrap: wrap;
+	}
+	.paymentMethod_wrap .form_wrap .colm_block {
+	    padding-left: 0px;
+	    flex-basis: 100%;
+	    max-width: 100%;
+	    margin-bottom: 10px;
+	    padding-right:0px;
+	}
+	#donorInfo .form_wrap{
+		padding:20px;
+	}
+	.donation-right .tabbing-listing{
+		padding:5px;
+	}
+	.donation-left .tabbing-listing{
+		border:0px;
+	}
+	.teams-listing.chooseTeam {
+	    padding: 0px 4px 1px;
+	}
+	#donorInfo .form_wrap {
+	    padding: 20px 10px;
+	}
+	#donorInfo .form_wrap label{
+		font-size: 15px;
+	}
+	.paymentMethod_wrap .card_info{
+		padding: 20px 10px;
+	}
+	.card_info .form_wrap label {
+	    font-size: 14px;
+	}
+	.no-campaign-data .hero-slider .slick-slide img{
+		height: 100%;
+	}
+	.paymentMethod_wrap .add_note{
+		flex-wrap: wrap;
+	}
+	.paymentMethod_wrap .add_note label{
+		margin-right: 0px;
+    	margin-bottom: 10px;
+	}
+	#scheduleRecurring .input_group{
+		max-width: calc(100% - 120px);
+	}
+	#searched_donors, #searched_teams{
+		max-height: 70vh;
+	}
+	.page-image img {
+	    max-width: 100%;
+	}
+	.paymentMethod_wrap .card_info .input_group .form-control{
+		font-size: 14px;
+	}	
+	.donateNow_button.m-visible {
+	    display: block;
+	    width: 100%;
+	    background-color: #fff;
+	    padding: 14px 26px;
+	    position: fixed;
+	    bottom: 0;
+	    left: 0;
+	    z-index: 999;
+	    box-shadow: 0 -10px 15px rgb(0 0 0 / 13%);
+	}
+	.donateNow_button .btn-primary {
+	    background-color: #7B5BC4;
+	    padding: 12px 30px 9px;
+	    border-color: #7B5BC4;
+	    transition: all ease-in-out 0.3s;
+	    width: 100%;
+	    font-size: 18px;
+	    appearance: none;
+	    -webkit-appearance: none;
+	    -moz-appearance: none;
+	}
+	.donateNow_button .btn-primary:focus,
+	.donateNow_button .btn-primary:active{
+		background-color: #7B5BC4;
+		outline: none;
+	}
+	.donation-left.team-url #teams {
+	    display: block;
+	    opacity: 1;
+	    z-index: 100001;
+	    position: static;
+	    background: none;
+	    padding: 0;
+	}
+	
+	.donation-left.team-url {
+	    position: relative;
+	    max-width: 100%;
+	}
+
+	.donation-left.team-url ul#tabs {
+	    display: none;
+	}
+	.donation-left.team-url .tab_title, .donation-left.team-url .tab-search {
+	    display: none;
+	}
+	.donation-left.team-url .teams-listing #searched_teams > ul > li{
+		display: none;
+	}
+	
+	.donation-left.team-url .teams-listing ul li.show_team_block {
+	    display: block !important;
+	}
+
+	.start-header .navbar{padding: .5rem 0rem;}
+	.team-top p.lang-hebrew{font-size: 14px;}
+	.tabbing-listing ul li .donor-info .donor-info-left{width: 190px;}
+	.tabbing-listing ul li .donor-info .donor-info-right {
+	    max-width: calc(100% - 190px);
+	}
+
+	.funds_donors{
+		justify-content: center;
+	}
+	#teams .team-info.search-teams.showExpand .donor-info.search-donors {
+	    padding: 10px 5px;
+	}
+	.donor-info-right h4{
+		font-size: 16px;
+		word-break: break-all;
+	}
+
+	.donation-grid .donation-left .tab-pane.active.show.responsive-tab{
+		display: none;
+	}
+
+
+	/*Recaptcha fix*/
+	.recaptcha_container.left_p  {padding-left: 0;}
+	.recaptcha_container.left_p #recptcha_v2_wrap {transform:scale(0.77);-webkit-transform:scale(0.77);-moz-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0; -moz-transform-origin:0 0;}
+}
+
+
+@media screen and (max-width:479px) {
+.tabbing-listing li a {padding: 5px 3px;}
+.donor-info-field >.form_wrap>.row .col-sm-6 {padding-left: 0;padding-right: 0;}
+
+}

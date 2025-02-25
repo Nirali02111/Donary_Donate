@@ -1,0 +1,36 @@
+cdk-virtual-scroll-viewport {
+  height: 455px;
+  margin: 20px auto;
+  /* scrollbar-color: #ff4081 #f5f5f5;
+    scrollbar-width: thin; */
+  margin-bottom: 0;
+}
+
+
+.filter-sort {
+  label:not(.form-check-label) {
+    font-size: 14px;
+    line-height: 20px;
+    color: #434246;
+    font-family: "Avenir";
+    margin-bottom: 0;
+    font-weight: 500;
+    text-transform: initial;
+  }
+
+  &>i {
+    cursor: pointer;
+    background-color: #E8E8E8;
+    -webkit-border-radius: 50rem;
+    -moz-border-radius: 50rem;
+    border-radius: 50rem;
+    height: 30px;
+    width: 42px;
+    text-align: center;
+    padding: 8px 0px;
+
+    svg {
+      vertical-align: top;
+    }
+  }
+}

@@ -1,0 +1,193 @@
+/* You can add global styles to this file, and also import other style files */
+
+.table th:first-child,
+.table td:first-child {
+    border-left: 1px solid #dee2e6 !important;
+}
+
+.table th:last-child,
+.table td:last-child {
+    border-right: 1px solid #dee2e6 !important;
+}
+
+.toast-container .ngx-toastr {
+    width: 450px !important;
+}
+
+/* daterange picker related styles */
+.md-drppicker.double {
+    width: 600px !important;
+}
+
+.md-drppicker .btn {
+    cursor          : pointer !important;
+    color           : #fff !important;
+    background-color: #007bff !important;
+    border-color    : #007bff !important;
+    box-shadow      : none !important;
+    display         : inline-block !important;
+    font-weight     : 400 !important;
+    text-align      : center !important;
+    vertical-align  : middle !important;
+    border          : 1px solid transparent !important;
+    padding         : .25rem .5rem !important;
+    font-size       : .875rem !important;
+    line-height     : 1.5 !important;
+    border-radius   : .25rem !important;
+    transition      : color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
+    overflow        : visible !important;
+}
+
+.md-drppicker .btn:hover:not(.clear) {
+    color           : #fff !important;
+    background-color: #0069d9 !important;
+    border-color    : #0062cc !important;
+}
+
+.md-drppicker .ranges ul li button.active {
+    background-color: #007bff !important;
+    border-color    : #007bff !important;
+}
+
+.md-drppicker td.start-date.end-date {
+    border-radius: 4px !important;
+}
+
+.md-drppicker td.active,
+.md-drppicker td.active:hover {
+    background-color: #357ebd !important;
+    border-color    : transparent !important;
+    color           : #fff !important;
+}
+
+.md-drppicker .clear svg {
+    margin-top: -8px !important;
+    color     : #212529 !important;
+    height    : 25px !important;
+    width     : 20px !important;
+}
+
+i {
+    cursor: pointer !important;
+}
+
+i span {
+    margin-left: 2px !important;
+    font-weight: normal !important;
+}
+
+/* Advanced Filter -> Add Filter multi level drop down related styles */
+
+li a {
+    cursor: pointer;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top                  : 0;
+    left                 : 100%;
+    margin-top           : 0;
+    margin-left          : -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius   : 0 6px 6px;
+    border-radius        : 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display     : block;
+    content     : " ";
+    float       : right;
+    width       : 0;
+    height      : 0;
+    margin-top  : 9px;
+    margin-right: 0;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+/* Card Type Chip */
+.info-box {
+    margin-bottom   : 5px !important;
+    background-color: #17a2b8 !important;
+    color           : #fff !important;
+    min-height      : 70px !important;
+    padding         : 5px !important;
+    cursor          : pointer;
+}
+
+.info-box .info-box-number {
+    font-weight: 700 !important;
+}
+
+.info-box .info-box-content {
+    padding: 2px 10px !important;
+}
+
+/*Data table related styles*/
+.table th:first-child,
+.table td:first-child {
+    border-left: 1px solid #dee2e6 !important;
+}
+
+.table th:last-child,
+.table td:last-child {
+    border-right: 1px solid #dee2e6 !important;
+}
+
+/* Advanced Filter -> Add Filter multi level drop down related styles */
+angular2-multiselect {
+    width: 100% !important;
+    color: #000 !important;
+}
+
+.angular2-multiselectDataLabel {
+    color      : #000 !important;
+    font-weight: 400 !important;
+    width      : 450px !important;
+    word-break : break-word !important;
+}
+
+.selected-list .c-btn {
+    color      : #000 !important;
+    font-size  : 1rem !important;
+    font-weight: 400 !important;
+}
+
+.selected-list .c-list .c-token {
+    border-radius: 5px !important;
+}
+
+.selected-list .c-angle-down,
+.selected-list .c-angle-up {
+    top: 38% !important;
+}
+
+.dropdown-list ul li {
+    padding: 5px 10px !important;
+}
+
+.pure-checkbox input[type=checkbox]+label {
+    font-weight: 400 !important;
+}
+
+.list-filter .c-search {
+    top: 5px !important;
+}
+
+a.link {
+    color           : #007bff !important;
+    text-decoration : none;
+    background-color: transparent;
+    cursor          : pointer;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

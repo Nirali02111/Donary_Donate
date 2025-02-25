@@ -1,0 +1,141 @@
+@import "../../assets/dist/scss/style";
+
+/* Section Success
+======================================================*/
+.section-success {
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  @include responsive(md) {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+.box-card {
+  border: 1px solid rgba(var(--bs-primary-rgb), 0.18);
+  flex: 0 0 auto;
+  width: 35.8%;
+  padding-top: 30px;
+  background-color: transparent;
+  margin-left: 38px;
+
+  @include prefix(box-shadow, 0px 4px 25px rgba(var(--bs-black-rgb), 0.06));
+
+  .item-information {
+    li {
+      padding-left: 20px;
+      position: relative;
+      margin-bottom: 17px;
+
+      i {
+        position: absolute;
+        top: 5px;
+        left: 0px;
+        width: 6px;
+        bottom: 8px;
+      }
+    }
+  }
+
+  h3 {
+    margin-top: 2px;
+
+    sup {
+      font-size: 50%;
+      top: 1rem;
+    }
+  }
+
+  @include responsive(xxxl) {
+    padding-top: 20px;
+    margin-left: 20px;
+
+    width: 45%;
+  }
+
+  @include responsive(xl) {
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 20px;
+
+    h3 {
+      sup {
+        top: 0.7rem;
+        margin-left: 2px;
+      }
+    }
+
+    .item-information {
+      li {
+        margin-bottom: 11px;
+
+        i {
+          width: 4px;
+          top: 3px;
+          bottom: 6px;
+        }
+      }
+    }
+  }
+}
+
+.item-list {
+  flex: 0 0 auto;
+  width: 58.61%;
+  padding-bottom: 8px;
+
+  .item {
+    border: 1px solid rgba(var(--bs-black-rgb), 0.16);
+    padding: 20px;
+    width: 100%;
+    margin-bottom: 12px;
+
+    figure {
+      line-height: 0;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      width: 100%;
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 9px;
+
+        h6 {
+          font-weight: 400;
+          text-align: right;
+
+          sup {
+            font-size: 50%;
+            top: 0.6rem;
+            margin-left: 2px;
+          }
+        }
+      }
+    }
+  }
+
+  @include responsive(md) {
+    width: 100%;
+  }
+  @include responsive(sm) {
+    .item {
+      padding: 10px;
+      margin-bottom: 8px;
+
+      figure {
+        margin-bottom: 15px;
+      }
+
+      ul {
+        li {
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+}

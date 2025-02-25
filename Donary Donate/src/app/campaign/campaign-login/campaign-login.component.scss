@@ -1,0 +1,12 @@
+@import "../../../assets/dist/scss/style";
+
+/* Section Scan
+======================================================*/
+.section-scan {
+	@include clamp('padding-top', 50px, 4.16vw, 80px);
+	@include clamp('padding-bottom', 50px, 4.16vw, 80px); 
+
+	h1 {
+		@include clamp('margin-bottom', 30px, 7.44vw, 143px);
+	}
+}

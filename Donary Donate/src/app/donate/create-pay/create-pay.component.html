@@ -1,0 +1,271 @@
+<section
+  class="section-payment min-vh-100 d-flex flex-column"
+  [ngClass]="{ 'section-bottom-show': editAmt }"
+>
+  <div class="head-bar">
+    <figure class="mx-auto">
+      <img
+        src="/assets/dist/img/icon-donar-pay.png"
+        width=""
+        height=""
+        alt=""
+      />
+    </figure>
+
+    <div class="head-card d-flex position-relative">
+      <i class="icon"
+        ><img src="/assets/dist/img/icon-pay.png" width="" height="" alt=""
+      /></i>
+
+      @if (!editAmt) {
+      <div class="mw-100 text-center d-flex flex-column">
+        <!-- Note: hide for now -->
+        <!-- <span class="title">קרן חתנים דפאלטישאן</span>
+                    <span class="name">Keren Chasanim</span>
+                    <label>ר' יוסף הכהן ברעכערמאן</label>-->
+        <h2>
+          {{
+            commonMethodService.formatAmount(
+              allParams.amount,
+              allParams.cncy ?? ""
+            )
+          }}
+        </h2>
+      </div>
+      } @if (editAmt) {
+      <div class="position-relative">
+        <span class="currency-icon">{{
+          commonMethodService.getCurrencyIcon(allParams.cncy)
+        }}</span>
+        <input
+          type="tel"
+          id="amountField"
+          class="form-control team-donation text-right"
+          (blur)="checkError()"
+          [(ngModel)]="allParams.amount"
+          #amountInput
+          (keypress)="commonMethodService.numberOnly($event)"
+        />
+
+        @if(showError && +allParams.amount! <= 0) {
+        <small class="text-danger">{{ amountRequireMsg }}</small>
+        }
+      </div>
+      } @if (!editAmt && errorType != 'ALREADY_PROCESSED') {
+      <a
+        href="javascript:void(0)"
+        class="edit-pin"
+        (click)="editAmount($event)"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="17.596"
+          height="17.596"
+          viewBox="0 0 17.596 17.596"
+        >
+          <path
+            id="Icon_material-edit"
+            data-name="Icon material-edit"
+            d="M4.5,18.427v3.665H8.165l10.81-10.81L15.31,7.617ZM21.81,8.447a.973.973,0,0,0,0-1.378L19.523,4.782a.973.973,0,0,0-1.378,0L16.356,6.571l3.665,3.665L21.81,8.447Z"
+            transform="translate(-4.5 -4.496)"
+            fill="#b4b4b4"
+          />
+        </svg>
+      </a>
+      }
+    </div>
+  </div>
+
+  @if (isLoading && !isPaymentProcess) {
+  <ng-template [ngTemplateOutlet]="loaderTmp"></ng-template>
+  }
+
+  <input
+    id="amount"
+    [hidden]="true"
+    #amtInput
+    name="xAmount"
+    placeholder="Amount"
+    type="number"
+    inputmode="decimal"
+  />
+  @if (!isPaymentProcess) {
+  <div class="flex-fill d-flex flex-wrap justify-content-center align-content-center text-center">
+    @if(isGooglePayIntegrationDirectly){
+    <div id="google-pay-button-container"></div>
+    }
+    @if(!isGooglePayIntegrationDirectly){
+
+            @switch (paymentButton)
+            {
+                    @case ('cardknox') {
+                           <div id="divGpay"
+                         class="gp hidden mb-0"
+                         [ngStyle]="{ display: editAmt ? 'none' : 'block' }">
+                      <iframe id="igp"
+                              class="gp mb-0 position-relative"
+                              data-ifields-id="igp"
+                              [attr.data-ifields-oninit]="gpRequest"
+                              src="https://cdn.cardknox.com/ifields/2.15.2401.3101/igp.htm"
+                              allowpaymentrequest
+                              sandbox="allow-popups allow-modals allow-scripts allow-same-origin allow-forms allow-popups-to-escape-sandbox allow-top-navigation"
+                              title="GPay checkout page">
+                      </iframe>
+                      <br />
+                    </div>
+                    }
+                    @case ('nmi') {
+                          <div id="divGpay"></div>
+                    }
+                    @default {
+                         <div id="divGpay"
+                         class="gp hidden mb-0"
+                         [ngStyle]="{ display: editAmt ? 'none' : 'block' }">
+                      <iframe id="igp"
+                              class="gp mb-0 position-relative"
+                              data-ifields-id="igp"
+                              [attr.data-ifields-oninit]="gpRequest"
+                              src="https://cdn.cardknox.com/ifields/2.15.2401.3101/igp.htm"
+                              allowpaymentrequest
+                              sandbox="allow-popups allow-modals allow-scripts allow-same-origin allow-forms allow-popups-to-escape-sandbox allow-top-navigation"
+                              title="GPay checkout page">
+                      </iframe>
+                      <br />
+                    </div>
+                    }
+            }
+    }
+    <div id="ap-dnr-container"></div>
+  </div>
+  } @if (isPaymentProcess) {
+  <ng-template [ngTemplateOutlet]="successTmp"></ng-template>
+  } @if (editAmt) {
+  <div class="bottom-bar-card">
+    <button class="btn btn-light" (click)="resetAmount()">cancel</button>
+    <button
+      class="btn btn-primary"
+      [disabled]="!allParams.amount || +allParams.amount <= 0"
+      (click)="updateAmount()"
+    >
+      next
+    </button>
+  </div>
+  }
+</section>
+
+<ng-template #loaderTmp>
+  <div class="flex-fill d-flex flex-wrap align-content-center text-center">
+    <span class="loader mx-auto"></span>
+    <span class="d-inline-block w-100">Processing</span>
+  </div>
+</ng-template>
+
+<ng-template #successTmp>
+  @if (isLoading) {
+  <ng-template [ngTemplateOutlet]="loaderTmp"></ng-template>
+  } @if (!isLoading) {
+  <div class="data-payment flex-fill text-center">
+    @if (isPaymentDone && !isErrorInPayment) {
+    <label>Thanks for your donation!</label>
+    <ng-template [ngTemplateOutlet]="successIconTmp"></ng-template>
+    <ng-template [ngTemplateOutlet]="donorInfoTmp"></ng-template>
+    <ng-template [ngTemplateOutlet]="gatewayInfoTmp"></ng-template>
+    } @if (isPaymentDone && isErrorInPayment) { @if (errorType) { @if (errorType
+    === 'ALREADY_EXIST') {
+    <ng-template [ngTemplateOutlet]="errorIconTmp"></ng-template>
+    <label>{{ errorResponseMsg }}</label>
+    } @if ( errorType === 'ALREADY_PROCESSED' ) {
+    <ng-template [ngTemplateOutlet]="successIconTmp"></ng-template>
+    <label>This payment was already processed, Thank You</label>
+    } } @else {
+    <ng-template [ngTemplateOutlet]="errorIconTmp"></ng-template>
+    <label>{{ errorResponseMsg }}</label>
+    } }
+  </div>
+  }
+</ng-template>
+
+<ng-template #successIconTmp>
+  <figure class="d-inline-block w-100">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="77"
+      height="77"
+      viewBox="0 0 77 77"
+    >
+      <g id="Group_331" data-name="Group 331" transform="translate(-362 -481)">
+        <g
+          id="Ellipse_4"
+          data-name="Ellipse 4"
+          transform="translate(362 481)"
+          fill="none"
+          stroke="#20b737"
+          stroke-width="1"
+        >
+          <circle cx="38.5" cy="38.5" r="38.5" stroke="none" />
+          <circle cx="38.5" cy="38.5" r="38" fill="none" />
+        </g>
+        <path
+          id="Path_1"
+          data-name="Path 1"
+          d="M3983,464.231l6,6.918,18.728-18.728"
+          transform="translate(-3593.923 58.522)"
+          fill="none"
+          stroke="#20b737"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
+        />
+      </g>
+    </svg>
+  </figure>
+</ng-template>
+
+<ng-template #errorIconTmp>
+  <figure class="d-inline-block w-100">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="77"
+      height="77"
+      viewBox="0 0 77 77"
+    >
+      <g id="Group_331" data-name="Group 331" transform="translate(-362 -481)">
+        <g
+          id="Ellipse_4"
+          data-name="Ellipse 4"
+          transform="translate(362 481)"
+          fill="none"
+          stroke="#ea5353"
+          stroke-width="1"
+        >
+          <circle cx="38.5" cy="38.5" r="38.5" stroke="none" />
+          <circle cx="38.5" cy="38.5" r="38" fill="none" />
+        </g>
+        <path
+          id="Union_67"
+          data-name="Union 67"
+          d="M699.365-14158.637l-9.364,9.363,9.364-9.363L690-14168l9.364,9.364,9.364-9.364-9.364,9.364,9.364,9.363Z"
+          transform="translate(-298.865 14678.137)"
+          fill="none"
+          stroke="#ea5353"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
+        />
+      </g>
+    </svg>
+  </figure>
+</ng-template>
+
+<ng-template #donorInfoTmp>
+  <span>{{ cardHolderName }} </span>
+  <address>{{ fullAddress }}</address>
+  <a href="tel:718-838-2351" title="718-838-2351">718-838-2351</a>
+</ng-template>
+
+<ng-template #gatewayInfoTmp>
+  <div>
+    @if (isGoogle) { Paid with Google (.... {{ methodDescription }}) } @if
+    (!isGoogle) { Paid with Apple (.... {{ methodDescription }}) }
+  </div>
+</ng-template>

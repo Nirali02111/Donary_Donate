@@ -1,0 +1,125 @@
+@import "../../../assets/dist/scss/style";
+
+/* Header
+======================================================*/
+header {
+	background-color: var(--bs-primary);
+	padding: 11px 0px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+
+	.fa {
+		line-height: var(--bs-line-height-h6);
+	}
+
+	.link-back {
+		color: var(--bs-white);
+		opacity: 0.62;
+		font-weight: var(--bs-font-extra-light);
+
+
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	.head-text {
+		font: normal normal 300 20px/28px 'Bahnschrift';
+		color: var(--bs-white);
+		text-transform: uppercase;
+		opacity: 0.72;
+		min-width: 230px;
+	}
+
+	.head-lang {
+		font: normal normal 400 18px/26px 'Bahnschrift';
+		color: #FFFFFF;
+		opacity: 0.62;
+		min-width: 230px;
+		text-align: right;
+	}
+
+	.icon-lang {
+		width: 48px;
+		height: 48px;
+		background: transparent url("../../../assets/dist/images/lang_eng-selected.png") no-repeat scroll center center;
+		display: inline-block;
+		margin-left: 18px;
+	}
+
+	.icon-lang.heb {
+		background-image: url("../../../assets/dist/images/lang_heb-selected.png");
+	}
+
+	small {
+		font-weight: 300;
+
+		span {
+			opacity: 0.62;
+		}
+
+		a {
+			color: var(--bs-secondary);
+		}
+	}
+
+	@include responsive(md) {
+		svg {
+			width: auto;
+			max-height: 44px;
+		}
+
+		.head-lang {
+			font: normal normal 400 18px/26px 'Bahnschrift';
+			color: #FFFFFF;
+			opacity: 0.62;
+			min-width: 230px;
+			text-align: right;
+			min-width: initial;
+		}
+
+		.head-text {
+			margin-top: 20px;
+			min-width: initial;
+			font-size: 16px;
+		}
+	}
+
+	@include responsive(sm) {
+		.dropdown {
+			.dropdown-data {
+				position: absolute;
+				top: 50px;
+				left: -15px;
+				background: var(--bs-primary);
+				padding: 15px;
+				z-index: 1;
+				width: 280px;
+				opacity: 0;
+				visibility: hidden;
+				@include prefix(border-radius, var(--bs-radius-sm));
+
+				&:before {
+					content: "";
+					position: absolute;
+					top: -5px;
+					left: 18px;
+					border-left: 5px solid transparent;
+					border-right: 5px solid transparent;
+					border-bottom: 5px solid var(--bs-primary);
+
+				}
+			}
+
+			&:hover {
+				.dropdown-data {
+					opacity: 1;
+					visibility: visible;
+				}
+			}
+		}
+	}
+}

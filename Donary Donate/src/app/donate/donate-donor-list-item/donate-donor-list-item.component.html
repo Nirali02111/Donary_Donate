@@ -1,0 +1,17 @@
+<div class="donor-info search-donors">
+    <div class="donor-info-left">
+        <p appIsHebrew [content]="item.donor">
+            {{ item.donor}}
+        </p>
+        <span>
+            {{ item.createdDate }}
+        </span>
+    </div>
+    <div class="donor-info-right">
+        <span>
+            <h4>
+                {{ commonMethodService.formatAmount(item.paid) }}
+            </h4>
+        </span>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<!-- Replace data-tokenization-key with a token we'll get from BE -->
+<script
+    src="https://secure.nmi.com/token/Collect.js"
+    data-tokenization-key="PD6xX3-cfyh54-3Y2TMg-3j49tt"
+    data-field-google-pay-selector="#GPay"
+    data-field-apple-pay-selector='#applepay'
+    data-field-google-pay-shipping-address-parameters-allowed-country-codes="US,CA"
+    data-field-google-pay-billing-address-parameters-format="MIN"    
+></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        CollectJS.configure({
+            callback: function(response){
+                console.log(response);
+                let token = response.token;
+                console.log(token);
+                // Go Ahead and do whatever you do with other payment gateways
+            },
+            price: "1",
+            variant:"inline",
+            currency : "USD",
+            country : "US"
+        });
+    });
+</script>
+<div id="GPay"></div>
+<div id="applepay"></div>

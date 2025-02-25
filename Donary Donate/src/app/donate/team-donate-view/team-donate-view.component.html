@@ -1,0 +1,1412 @@
+<div *ngIf="!isToirem; else toiremView">
+  <ng-container *ngIf="isReasonExist">
+    <ng-container *ngIf="(leftTabPanelSetting$ | async)?.showHeader">
+      <div class="navigation-wrap start-header donate-header">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <nav class="navbar navbar-expand-md navbar-light justify-content-between">
+                <a class="navbar-brand" href="#" target="_blank"><img src="/assets/dist/img/donary_donate.png"
+                    alt="" /></a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                  data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                  aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+                  <ul class="navbar-nav ml-auto">
+                    <li class="icon-hebrew-lan">
+                      <span><a (click)="useLanguage('heb')"><img src="/assets/dist/img/alpha-icons.png" /></a></span>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link" [href]="getHomeRoute()">
+                        {{ "HOME" | translate }}
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" [href]="getDonateRoute()" fragment="contact">
+                        {{ "CONTACT" | translate }}
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="https://drm.donary.com/" target="_blank">
+                        {{ "LOGIN" | translate }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="home-banner donary-container donate-banner"
+      [class.no-campaign-data]="donatePageData.campaignGoal === 0">
+      <div class="container">
+        <ng-container *ngIf="donatePageData.campaignGoal === 0">
+          <div class="company-title title-data">
+            <h2 class="">{{ donatePageData.campaignName }}</h2>
+          </div>
+        </ng-container>
+
+        <div class="hero-grid">
+          <div class="hero-slider">
+            <div class="lazy---slider">
+              <div>
+                <a class="team-campaign-name" (click)="goTocampaignDonate()">
+                  <ng-container *ngIf="donatePageData?.campaignImage">
+                    <img [src]="donatePageData?.campaignImage" style="max-width: 100%" />
+                  </ng-container>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <ng-container *ngIf="donatePageData.campaignGoal != 0">
+            <div class="slider-details">
+              <div class="company-details">
+                <div class="company-title">
+                  <h2 appIsHebrew [content]="donatePageData?.campaignName">
+                    {{ donatePageData?.campaignName }}
+                  </h2>
+                  <a href="#" (click)="openDetails($event, detailContent)">{{
+                    "READCAMPAIGN" | translate
+                    }}</a>
+                </div>
+                <div class="company-progress-grid">
+                  <div class="campaignBonusGoal-header">
+                    <div>
+                      <span>{{ "GOAL" | translate }}:</span>
+                      <h3 class="semi-price">
+                        {{
+                        commonMethodService.formatAmount(
+                        donatePageData?.campaignGoal,
+                        currency
+                        )
+                        }}
+                      </h3>
+                    </div>
+
+                    <div class="goal-text" *ngIf="isBonusGoalVisibility">
+                      <span>{{ "BONUSGOAL" | translate }}:</span>
+                      <h3 class="semi-price">
+                        {{
+                        commonMethodService.formatAmount(
+                        donatePageData?.campaignBonusGoal,
+                        currency
+                        )
+                        }}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <ng-container *ngIf="donatePageData">
+                    <ng-container *ngIf="
+                        donatePageData &&
+                        donatePageData.fundRaisedPercent != null &&
+                        donatePageData.fundRaisedPercent >= 0
+                      ">
+                      <div class="progress" [class.campaignBonusGoal-wrap]="
+                          donatePageData &&
+                          donatePageData.campaignBonusGoal &&
+                          donatePageData.campaignBonusGoal > 0
+                        ">
+                        <div class="progress-bar" role="progressbar" [style.width]="
+                            donatePageData.fundRaisedPercent &&
+                            donatePageData.fundRaisedPercent > 100
+                              ? '100%'
+                              : donatePageData?.fundRaisedPercent + '%'
+                          " aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                          <span class="progress-value" *ngIf="donatePageData.fundRaisedPercent != 0">{{
+                            donatePageData?.fundRaisedPercent }}%</span>
+                        </div>
+                        <ng-container *ngIf="
+                            donatePageData.campaignGoal &&
+                            donatePageData.totalFundRaised &&
+                            donatePageData.campaignGoal <
+                              donatePageData.totalFundRaised &&
+                            donatePageData.campaignBonusGoal > 0
+                          ">
+                          <div class="campaignBonusGoal">
+                            <span class="campaign_spanbonus" [style.width]="
+                                donatePageData?.bonusGoalPercentage + '%'
+                              " *ngIf="
+                                donatePageData.campaignBonusGoal > 0 &&
+                                donatePageData.fundRaisedPercent >= 100
+                              "></span>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+
+                  <div class="funds_donors">
+                    <ng-container *ngIf="donatePageData?.totalFundRaised">
+                      <div class="fund_div">
+                        <span>{{ "FUNDRAISED" | translate }}:</span>
+                        <h3 class="price">
+                          <span>
+                            {{
+                            commonMethodService.formatAmount(
+                            donatePageData?.totalFundRaised,
+                            currency
+                            )
+                            }}
+                          </span>
+                        </h3>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="donatePageData?.totalDonors">
+                      <div class="donor_div">
+                        <span>{{ "DONORS" | translate }}</span>
+                        <h3 class="price">
+                          <span class="totalDonors">{{
+                            donatePageData?.totalDonors
+                            }}</span>
+                        </h3>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <ng-container *ngIf="
+                    donatePageData?.campaignEndTime &&
+                    isDisplayCountdown &&
+                    remainingTimes
+                  ">
+                  <div class="company-footer" id="countdown_timer">
+                    <span>{{ "TIMEREMAINING" | translate }}:</span>
+                    <p id="countdown">{{ remainingTimes }}</p>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <section class="donation-wrapper" *ngIf="commonMethodService.error404 == ''">
+      <div class="container">
+        <div class="donation-grid donation-wrapper-center" [style.justify-content]="
+            (leftTabPanelSetting$ | async)?.showDonorPanel ||
+            (leftTabPanelSetting$ | async)?.showTeamPanel ||
+            (leftTabPanelSetting$ | async)?.showGroupPanel
+              ? 'space-between'
+              : 'center'
+          ">
+          <div class="donation-left" *ngIf="
+              (leftTabPanelSetting$ | async)?.showDonorPanel ||
+              (leftTabPanelSetting$ | async)?.showTeamPanel ||
+              (leftTabPanelSetting$ | async)?.showGroupPanel
+            ">
+            <div class="tabbing-listing">
+              <ul ngbNav #leftTab="ngbNav" [activeId]="leftActiveId" class="nav-tabs justify-content-center">
+                <ng-container *ngIf="(leftTabPanelSetting$ | async)?.showDonorPanel">
+                  <li [ngbNavItem]="'tab-leftid1'" (click)="setSorByOptions(1)">
+                    <button ngbNavLink>
+                      {{ "DONORS" | translate }}
+                      <span class="totalDonors" *ngIf="donatePageData?.totalDonors !== 0">
+                        ({{ donatePageData?.totalDonors }})
+                      </span>
+                    </button>
+                    <ng-template ngbNavContent>
+                      <div class="donors-listing">
+                        <div class="tab-search">
+                          <div class="input-group">
+                            <input type="text" class="form-control" name="search_donors"
+                              (input)="searchInLstDonorDonation($event)" id="search_donors"
+                              [placeholder]="'SEARCHDONORS' | translate" />
+                          </div>
+                        </div>
+                        <ng-container [ngTemplateOutlet]="sorting"></ng-container>
+
+                        <div class="donors_listing">
+                          <ul>
+                            <cdk-virtual-scroll-viewport itemSize="45" (scrolledIndexChange)="elementScrolled($event)">
+                              <ng-container *cdkVirtualFor="
+                                  let item of lstDonorDonation$ | async
+                                ">
+                                <li>
+                                  <div class="donor-info search-donors">
+                                    <div class="donor-info-left">
+                                      <p [class.lang-hebrew]="
+                                          isHebrew(item.donor)
+                                        ">
+                                        {{ item.donor }}
+                                      </p>
+                                      <ng-container *ngIf="item.reasonId">
+                                        <span>{{ "TEAM" | translate }}:
+                                          <a class="trigger" triggers="manual" [ngbPopover]="teamHover"
+                                            popoverClass="teamHoverpopover" placement="bottom-left"
+                                            #teamHoverP="ngbPopover" (mouseenter)="
+                                              onHover(teamHoverP, item)
+                                            " (mouseleave)="
+                                              onHoverOff(teamHoverP)
+                                            ">
+                                            <ng-container *ngIf="
+                                                item.reasonNameJewish &&
+                                                ( displayLanguage == 'Hebrew')
+                                                else teamNotJewish
+                                              ">
+                                              {{ item.reasonNameJewish }}
+                                            </ng-container>
+                                            <ng-template #teamNotJewish>
+                                              <span *ngIf="item.reasons == null">
+                                                {{
+                                                (displayLanguage == 'English' || displayLanguage == null)
+                                                ? item.reasonName
+                                                : item.reasonNameJewish
+                                                }}</span>
+                                              <span *ngIf="item.reasons != null">
+                                                {{ item.reasons }}</span>
+                                            </ng-template>
+                                          </a>
+                                        </span>
+                                      </ng-container>
+                                    </div>
+                                    <div class="donor-info-right">
+                                      <span>
+                                        <h4>
+                                          {{
+                                          commonMethodService.formatAmount(
+                                          item.paid,
+                                          currency
+                                          )
+                                          }}
+                                        </h4>
+                                      </span>
+                                      <span>{{ item.createdDate }}</span>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ng-container>
+                            </cdk-virtual-scroll-viewport>
+                          </ul>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </li>
+                </ng-container>
+
+                <ng-container *ngIf="(leftTabPanelSetting$ | async)?.showTeamPanel">
+                  <li [ngbNavItem]="'tab-leftid2'" (click)="setSorByOptions(2)">
+                    <button ngbNavLink>
+                      {{ "TEAMS" | translate }}
+                      <ng-container *ngIf="!isDataProcessing">
+                        <ng-container *ngIf="
+                            leftTeams$ | async as lTeamList;
+                            else lTeamListLoading
+                          ">
+                          <ng-container *ngIf="lTeamList.length !== 0">
+                            <span class="totalDonors">({{ lTeamList.length }})</span>
+                          </ng-container>
+                        </ng-container>
+                        <ng-template #lTeamListLoading> </ng-template>
+                      </ng-container>
+                    </button>
+
+                    <ng-template ngbNavContent>
+                      <div class="teams-listing">
+                        <div class="tab-search">
+                          <div class="input-group">
+                            <input type="text" class="form-control" [placeholder]="'SEARCHTEAMS' | translate"
+                              (input)="searchInLeftTeams($event)" />
+                          </div>
+                        </div>
+                        <ng-container [ngTemplateOutlet]="sorting"></ng-container>
+
+                        <div id="searched_teams">
+                          <ul>
+                            <ng-container *ngFor="let item of leftTeams$ | async">
+                              <app-team-list-item [item]="item" [macAddress]="macAddress || ''" [isExpandable]="
+                                  (leftTabPanelSetting$ | async)
+                                    ?.expandTeamToShowDonors
+                                    ? true
+                                    : false
+                                " [displayLang]="displayLanguage==null?'English':displayLanguage"></app-team-list-item>
+                            </ng-container>
+                          </ul>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </li>
+                </ng-container>
+
+                <ng-container *ngIf="(leftTabPanelSetting$ | async)?.showGroupPanel">
+                  <li [ngbNavItem]="'tab-leftid3'" (click)="setSorByOptions(3)">
+                    <button ngbNavLink>
+                      {{ "GROUPS" | translate }}
+                      <ng-container *ngIf="!isDataProcessing">
+                        <ng-container *ngIf="
+                            leftGroups$ | async as lGroupList;
+                            else lGroupListLoading
+                          ">
+                          <ng-container *ngIf="lGroupList.length !== 0">
+                            <span class="totalDonors">({{ lGroupList.length }})
+                            </span>
+                          </ng-container>
+                        </ng-container>
+                        <ng-template #lGroupListLoading> </ng-template>
+                      </ng-container>
+                    </button>
+
+                    <ng-template ngbNavContent>
+                      <div class="donors-listing">
+                        <div class="tab-search">
+                          <div class="input-group">
+                            <input type="text" class="form-control" name="search_groups" id="search_groups"
+                              [placeholder]="'SEARCHGROUPS' | translate" (input)="searchInLeftGroup($event)" />
+                          </div>
+                        </div>
+                        <ng-container [ngTemplateOutlet]="sorting"></ng-container>
+
+                        <div id="searched_groups">
+                          <ul>
+                            <ng-container *ngFor="let item of leftGroups$ | async">
+                              <app-group-list-item [item]="item" [macAddress]="macAddress || ''"
+                                [donateReasons]="donatePageData.lstDonateReason"
+                                [displayLang]="displayLanguage==null?'English':displayLanguage">
+                              </app-group-list-item>
+                            </ng-container>
+                          </ul>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </li>
+                </ng-container>
+              </ul>
+
+              <div [ngbNavOutlet]="leftTab" class="mt-2"></div>
+            </div>
+          </div>
+
+          <div class="donation-right">
+            <div class="payment-wrapper" id="payment_block">
+              <h3>{{ "DONATE" | translate }}</h3>
+              <div class="tabbing-listing">
+                <ul ngbNav #rightTab="ngbNav" [activeId]="activeId" class="nav-tabs justify-content-center">
+                  <li [ngbNavItem]="'tab-selectbyid1'">
+                    <button ngbNavLink (click)="
+                        donationAmountIncreasedPopup(
+                          'tab-selectbyid2',
+                          amountIncreaseContent
+                        )
+                      ">
+                      <span class="icon">
+                        <i class="icon-donate"></i>
+                      </span>
+                      <span class="text">
+                        {{ "DONATIONAMOUNT" | translate }}
+                        <span id="donation_amount_selected" *ngIf="DonateAmount?.value">
+                          <br />
+                          {{ donationAmountFormat }}
+                        </span>
+                      </span>
+                    </button>
+                    <ng-template ngbNavContent>
+                      <ng-template [ngTemplateOutlet]="donateAmountTabTmp"></ng-template>
+                    </ng-template>
+                  </li>
+
+                  <ng-container *ngIf="isTeamTabVisible">
+                    <li [ngbNavItem]="'tab-selectbyid2'">
+                      <button ngbNavLink (click)="
+                          donationAmountIncreasedPopup(
+                            'tab-selectbyid3',
+                            amountIncreaseContent
+                          )
+                        ">
+                        <span class="icon">
+                          <i class="icon-team"></i>
+                        </span>
+                        <span class="text">{{ "CHOOSETEAM" | translate }}
+                          <span id="selected_team_name" class="lang-hebrew">
+                            <ng-container *ngIf="SelectedTeams.length !== 0">
+                              <br />
+                              {{ SelectedTeamNameValues }}
+                            </ng-container>
+                          </span>
+                        </span>
+                      </button>
+
+                      <ng-template ngbNavContent>
+                        <ng-template [ngTemplateOutlet]="selectTeamsTabTmp"></ng-template>
+                      </ng-template>
+                    </li>
+                  </ng-container>
+
+                  <li [ngbNavItem]="'tab-selectbyid3'">
+                    <button ngbNavLink (click)="
+                        donationAmountIncreasedPopup(
+                          'tab-selectbyid3',
+                          amountIncreaseContent
+                        )
+                      ">
+                      <span class="icon">
+                        <i class="icon-donar-info"></i>
+                      </span>
+                      <span class="text">{{ "DONORINFO" | translate }}
+                        <span id="donor_name" *ngIf="
+                            DonorInfoFirstName?.value ||
+                            DonorInfoLastName?.value
+                          ">
+                          <br />
+                          {{ DonorInfoFirstName?.value }}
+                          {{ DonorInfoLastName?.value }}
+                        </span>
+                      </span>
+                    </button>
+
+                    <ng-template ngbNavContent>
+                      <ng-template [ngTemplateOutlet]="donorInfoTabTmp"></ng-template>
+                    </ng-template>
+                  </li>
+
+                  <li [ngbNavItem]="'tab-selectbyid4'">
+                    <button ngbNavLink (click)="
+                        donationAmountIncreasedPopup(
+                          'tab-selectbyid4',
+                          amountIncreaseContent
+                        )
+                      ">
+                      <span class="icon">
+                        <i class="icon-payment-method"></i>
+                      </span>
+                      <span class="text">
+                        {{ "PAYMENTMETHOD" | translate }}
+                        <ng-container *ngIf="
+                            PaymentCardNumber?.touched &&
+                            PaymentCardNumber?.valid
+                          ">
+                          <br />
+                          <span id="card_type">{{ paymentMethodValue }}</span>
+                        </ng-container>
+                      </span>
+                    </button>
+
+                    <ng-template ngbNavContent>
+                      <ng-template [ngTemplateOutlet]="paymentInfoTabTmp"></ng-template>
+                    </ng-template>
+                  </li>
+                </ul>
+
+                <div [ngbNavOutlet]="rightTab"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="donateNow_button m-visible" id="mobile_screen_donate_button" style="display: none">
+            <a type="button" class="btn btn-primary">{{
+              "DONATENOW" | translate
+              }}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <ng-template #typeSelection>
+      <!--code for showing currencies functionality started -->
+      <div class="d-flex justify-content-center align-items-center flex-column add-currency"
+        *ngIf="!donatePageData?.totalDonors">
+        <span> {{ symbol }}</span>
+        <ng-select bindLabel="currencyName" bindValue="currencyName" [(ngModel)]="currenci" [items]="currencies"
+          (change)="updateSymbol()" [searchable]="false">
+          <ng-template ng-option-tmp let-item="item">
+            <div>
+              <div>
+                {{ item.currencyName }}
+              </div>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+      <!--code for showing currencies functionality ended -->
+    </ng-template>
+
+    <ng-template #donateAmountTabTmp>
+      <div class="donation_amount_wrapper" (keyup.enter)="goToTeamsInfoTab()" [formGroup]="donateAmountFormGroup">
+        <div class="left_block">
+          <h6>{{ "YOURDONATION" | translate }}</h6>
+          <div class="form_wrap_donation" [@swingTrigger]="needToAnimate(DonateAmount)">
+            <div class="form-group">
+              <ng-template [ngTemplateOutlet]="typeSelection"></ng-template>
+              <ng-container *ngIf="isScheduleRecurringDonation">
+                <input type="tel" class="form-control required number" id="donation_amount"
+                  [value]="'Shedule Amount ' + donationAmountFormat" readonly="true" />
+              </ng-container>
+              <ng-container *ngIf="!isScheduleRecurringDonation">
+                <input type="tel" [placeholder]="'DONATIONAMOUNT' | translate" class="form-control required number"
+                  id="donation_amount" formControlName="amount" [validation]="true" mask="separator.2"
+                  thousandSeparator="," [separatorLimit]="separatorLimit" (focusout)="onAmountAdd($event)"
+                  [class.highlight]="
+                    DonateAmount?.touched && DonateAmount?.invalid
+                  " />
+              </ng-container>
+            </div>
+            <p class="note" (click)="openScheduleDetails($event, scheduleContent)">
+              {{ "SHEDULERECURRINGPAYMENT" | translate }} <br /><span id="recurring_amount">
+                <ng-container *ngIf="isScheduleRecurringDonation">{{
+                  symbolDonateAmount
+                  }}</ng-container>
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <div class="right_block" [hidden]="
+            donatePageData && donatePageData.lstEventAmount.length === 0
+          ">
+          <ng-container *ngIf="donatePageData && donatePageData.lstEventAmount">
+            <ng-container *ngFor="let item of donatePageData.lstEventAmount">
+              <div class="col-block package_amount" (click)="
+                  formatAmt$.next(item.number.toString());
+                  isScheduleRecurringDonation = false
+                ">
+                <p appIsHebrew [content]="item.text">{{ item.text }}</p>
+                <div class="amount">
+                  {{ commonMethodService.formatAmount(item.number, currency) }}
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="next_action pt-4 text-center">
+        <button type="button" class="btn btn-primary" (click)="goToTeamsInfoTab()">
+          <span class="next-span">{{ "NEXT" | translate }}</span>
+          <span class="material-icons"> arrow_forward </span>
+          <!-- <span class="icon arrow-right">
+          <img src="/assets/dist/img/donate-right-arrow.svg" alt="">
+        </span> -->
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template #selectTeamsTabTmp>
+      <div class="teams-listing chooseTeam">
+        <div class="left_block">
+          <div class="tab-search">
+            <div class="input-group">
+              <input type="text" class="form-control" (input)="searchInLstDonateReason($event)" name="search_team"
+                [placeholder]="'SEARCHTEAMS' | translate" />
+            </div>
+          </div>
+          <div id="search_results" class="choose_team">
+            <ng-container *ngIf="(lstDonateReason$ | async)?.length !== 0">
+              <ul id="search_results_ul">
+                <ng-container *ngFor="let item of lstDonateReason$ | async">
+                  <li (click)="onSelectTeam(item)">
+                    <div class="team-info search-team">
+                      <div class="checkbox">
+                        <input type="checkbox" class="input-checkbox selectteams" name="select_team"
+                          [checked]="haveSelected(item)" />
+                        <label class="custom_checkbox"></label>
+                      </div>
+                      <div class="content_block">
+                        <div class="team-top">
+                          <!-- -->
+                          @if(displayLanguage == 'Hebrew'){
+                          <p appIsHebrew
+                            [content]="item.reasonNameJewish==null?item?.reasonName:item?.reasonNameJewish">
+                            {{ item?.reasonNameJewish==null?item?.reasonName:item?.reasonNameJewish }}
+                          </p>
+                          }
+                          @else {
+                          <ng-template [ngTemplateOutlet]="reasonNameEng"
+                            [ngTemplateOutletContext]="{ item: item }"></ng-template>
+                          }
+
+                          <span class="donarCount" *ngIf="item.donors">{{ item.donors }} {{ "DONORS" | translate
+                            }}</span>
+                        </div>
+                        <div class="team-bottom" *ngIf="item.raised && item.raised > 0">
+                          <span>{{ "FUNDRAISED" | translate }}:
+                            <strong>{{
+                              commonMethodService.formatAmount(
+                              item.raised,
+                              currency
+                              )
+                              }}</strong></span>
+                          <ng-container *ngIf="item.goal && item.goal > 0">
+                            <span class="g_text">{{ "GOAL" | translate }}:
+                              <strong>{{
+                                commonMethodService.formatAmount(
+                                item.goal,
+                                currency
+                                )
+                                }}</strong>
+                            </span>
+                          </ng-container>
+                        </div>
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" [style.width]="
+                              commonMethodService.getProgressBarWidth(
+                                item.totalPayment
+                              )
+                            " aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ng-container>
+              </ul>
+            </ng-container>
+          </div>
+          <div id="no_team" *ngIf="(lstDonateReason$ | async)?.length === 0">
+            {{ "NOTEAMSFOUND" | translate }}
+          </div>
+        </div>
+        <div class="right_block" (keyup.enter)="goToDonorInfoTab(amountIncreaseContent)"
+          [formGroup]="teamSelectionFormGroup">
+          <div class="greyBg selected-teams">
+            <h4>{{ "SELECTEDTEAM" | translate }}</h4>
+            <ng-container *ngIf="SelectedTeams.length !== 0">
+              <ul id="selected_team">
+                <li *ngFor="let item of SelectedTeams.controls; let i = index" formArrayName="selectedTeams">
+                  <div [formGroupName]="i">
+                    <span class="text" appIsHebrew [content]="
+                        (displayLanguage == 'English' || displayLanguage == null)
+                          ? item?.get('reasonName')?.value
+                          : item?.get('reasonNameJewish')?.value==null? item.get('reasonName')?.value
+                          : item?.get('reasonNameJewish')?.value
+                      ">
+                      {{
+                      (displayLanguage == 'English' || displayLanguage == null)
+                      ? item?.get("reasonName")?.value
+                      : item?.get("reasonNameJewish")?.value==null?item?.get('reasonName')?.value
+                      : item?.get('reasonNameJewish')?.value
+                      }}
+                    </span>
+
+                    <ng-container *ngIf="SelectedTeams.length > 1 || !DonateAmount?.value">
+                      <div class="donate-input" [@swingTrigger]="needToAnimate(item?.get('amount'))">
+                        <span [ngClass]="commonMethodService.currencyClass"></span>
+                        <input type="tel" class="form-control team-donation" formControlName="amount" mask="separator.2"
+                          thousandSeparator="," [validation]="true" [separatorLimit]="separatorLimit" [class.highlight]="
+                            item?.get('amount')?.touched &&
+                            item?.get('amount')?.invalid
+                          " (focusout)="onTeamAmountAdd($event, i)" />
+                      </div>
+                    </ng-container>
+                    <div>
+                      <button class="dismiss" (click)="removeTeam(i)">
+                        &times;
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </ng-container>
+
+            <ng-container *ngIf="SelectedTeams.length === 0">
+              <span id="no_teams_selected">
+                <h6>{{ "NOTEAMSELECTED" | translate }}</h6>
+              </span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <div class="next_action pt-4 text-center">
+        <button type="button" class="btn btn-primary" (click)="goToDonorInfoTab(amountIncreaseContent)">
+          <span class="next-span">{{ "NEXT" | translate }}</span>
+          <span class="material-icons"> arrow_forward </span>
+          <!-- <span class="icon arrow-right">
+          <img src="/assets/dist/img/donate-right-arrow.svg" alt="" />
+        </span> -->
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template #donorInfoTabTmp>
+      <div class="form_wrap form_wrap donor-info-field" (keyup.enter)="goToPaymentInfoTab()"
+        [formGroup]="donorInfoFormGroup">
+        <div class="row">
+          <div class="col-sm-6 order-2">
+            <div class="form-group number_input inside_trigger" (keyup.enter)="$event.stopPropagation()"
+              [@swingTrigger]="needToAnimate(DonorInfoPhoneNumber)">
+              <label>{{ "PHONENUMBER" | translate }}</label>
+              <input type="text" class="form-control required" name="phone_number" formControlName="PhoneNumber"
+                [class.highlight]="
+                  (DonorInfoPhoneNumber?.touched &&
+                    DonorInfoPhoneNumber?.invalid) ||
+                  isPhoneZerosValidation
+                " [validation]="true" (keyup.enter)="getDonorInfoByPhone()" (keyup)="phoneZerosValidation()"
+                [mask]="cardMask" />
+              <div class="enter" (click)="getDonorInfoByPhone()">
+                <span>{{ "ENTER" | translate }}</span>
+              </div>
+              <span *ngIf="isPhoneZerosValidation" class="account-duplicate"
+                style="color: red; font-style: italic">Invalid phone number</span>
+            </div>
+          </div>
+          <div class="col-sm-6 order-2">
+            <!-- <div class="form-group inside_trigger" [@swingTrigger]="needToAnimate(DonorInfoFullNameJewish)">
+                      <label>Name</label>
+                      <input type="text" class="form-control required hebrewNoSpace" name="name" id="name"
+                          formControlName="FullNameJewish"
+                          [class.highlight]="DonorInfoPhoneNumber?.touched && DonorInfoPhoneNumber?.invalid">
+                  </div> -->
+
+            <div class="form-group inside_trigger" style="
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+              ">
+              <div class="field-first-name" [@swingTrigger]="needToAnimate(DonorInfoFirstName)">
+                <label for="firstName">{{ "FIRSTNAME" | translate }}</label>
+                <input type="text" class="form-control required" id="firstName" formControlName="FirstName" mask="L*"
+                  [patterns]="DonorNamePatterns" [class.highlight]="
+                    DonorInfoFirstName?.touched && DonorInfoFirstName?.invalid
+                  " maxlength="13" />
+              </div>
+              <div class="field-last-name" [@swingTrigger]="needToAnimate(DonorInfoLastName)">
+                <label for="lastName">{{ "LASTNAME" | translate }}</label>
+                <input type="text" class="form-control required" id="lastName" formControlName="LastName"
+                  [class.highlight]="
+                    DonorInfoLastName?.touched && DonorInfoLastName?.invalid
+                  " mask="L*" [patterns]="DonorNamePatterns" maxlength="12" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 order-3">
+            <div class="form-group inside_trigger row-billing-apt">
+              <div class="field-billing" [@swingTrigger]="needToAnimate(DonorInfoStreetName)">
+                <label>{{ "ADDRESS" | translate }}</label>
+                <input type="text" appAddressAutocomplete class="form-control required noSpace" name="address"
+                  id="address" formControlName="StreetName" [class.highlight]="
+                    DonorInfoStreetName?.touched && DonorInfoStreetName?.invalid
+                  " (onAddressChange)="onAddressChange($event)" />
+                <div class="edit" id="billing_address_icon" style="display: none">
+                  <i class="fa fa-edit"></i>
+                </div>
+              </div>
+              <div class="field-apt" [@swingTrigger]="needToAnimate(DonorInfoUnitNum)">
+                <label>{{ "APT" | translate }}#</label>
+                <input type="text" class="form-control hebrewNoSpace" name="apt" id="apt" formControlName="UnitNum"
+                  [class.highlight]="
+                    DonorInfoUnitNum?.touched && DonorInfoUnitNum?.invalid
+                  " />
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 order-2 order-sm-3">
+            <div class="form-group inside_trigger" [@swingTrigger]="needToAnimate(DonorInfoDisplayName)">
+              <div class="d-flex justify-content-between align-items-center">
+                <label for="display_name">{{
+                  "NAMEDISPLAY" | translate
+                  }}</label>
+                <div class="anonymous">
+                  <label for="anonymous_name">{{
+                    "ANONYMOUS" | translate
+                    }}</label>
+                  <input type="checkbox" class="input-checkbox w-auto" id="anonymous_name" name="anonymous_name"
+                    formControlName="isAnonymous" />
+                  &nbsp;
+                  <div class="tooltip-custom">
+                    <i class="fa fa-info-circle" triggers="mouseenter:mouseleave"
+                      ngbPopover="checking Anonymous, your name will not show in the donorfeed.">
+                    </i>
+                    <!-- <span class="tooltiptext">By
+                                                        checking Anonymous, your name will not show in the donor
+                                                        feed.
+                                                    </span> -->
+                  </div>
+                </div>
+              </div>
+
+              <input type="text" class="form-control required" name="display_name" id="display_name"
+                formControlName="DisplayName" [class.highlight]="
+                  DonorInfoDisplayName?.touched && DonorInfoDisplayName?.invalid
+                " maxlength="25" />
+            </div>
+          </div>
+          <div class="col-sm-6 order-3">
+            <div class="form-group inside_trigger row-city-state-zip">
+              <div class="field field-city" [@swingTrigger]="needToAnimate(DonorInfoCity)">
+                <label for="city">{{ "CITY" | translate }}</label>
+                <input type="text" value="" name="city" id="city" class="form-control required noSpace"
+                  formControlName="City" [class.highlight]="
+                    DonorInfoCity?.touched && DonorInfoCity?.invalid
+                  " />
+              </div>
+              <div class="field field-city" [@swingTrigger]="needToAnimate(DonorInfoState)">
+                <label for="state">{{ "STATE" | translate }}</label>
+                <input type="text" value="" name="state" id="state" class="form-control required noSpace"
+                  formControlName="State" [class.highlight]="
+                    DonorInfoState?.touched && DonorInfoState?.invalid
+                  " />
+              </div>
+              <div class="field field-city" [@swingTrigger]="needToAnimate(DonorInfoZip)">
+                <label for="zip">{{ "ZIP" | translate }}</label>
+                <input type="text" value="" name="zip" id="zip" class="form-control required noSpace"
+                  formControlName="Zip" [class.highlight]="
+                    DonorInfoZip?.touched && DonorInfoZip?.invalid
+                  " />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 order-3">
+            <div class="form-group" [@swingTrigger]="needToAnimate(DonorInfoEmail)">
+              <label>{{ "EMAILADDRESS" | translate }}</label>
+              <input type="text" class="form-control required emailcustom noSpace" name="email" id="email"
+                formControlName="Email" [class.highlight]="
+                  DonorInfoEmail?.touched && DonorInfoEmail?.invalid
+                " />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- {{ donorInfoFormGroup.value | json }} -->
+
+      <div class="next_action pt-4 text-center">
+        <button type="button" class="btn btn-primary" (click)="goToPaymentInfoTab()">
+          <span class="next-span">{{
+            isSkipPersonalInfo ? ("SKIP" | translate) : ("NEXT" | translate)
+            }}</span>
+          <span class="material-icons"> arrow_forward </span>
+          <!-- <span class="icon arrow-right">
+          <img src="/assets/dist/img/donate-right-arrow.svg" alt="" />
+        </span> -->
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template #paymentInfoTabTmp>
+      <div class="paymentMethod_wrap" (keyup.enter)="onPaymentClick(thankYouModalContent)"
+        [formGroup]="paymentFormGroup">
+        <h5>{{ "ENTERYOURCARDINFO" | translate }}</h5>
+        <div class="card_info">
+          <div class="form_wrap">
+            <div class="col-6 colm_block" [@swingTrigger]="needToAnimate(PaymentCardNumber)">
+              <label for="cardNumber">{{ "CARDNUMBER" | translate }}</label>
+              <div class="input_group">
+                <span class="card_icon"><img src="/assets/dist/img/cc-payment-icon.svg" alt="" /></span>
+                <input type="tel" name="cardNumber" id="cardNumber" class="form-control cardnumber required"
+                  formControlName="cardNumber" style="text-align: start" autocomplete="cc-number" [mask]="maskValue"
+                  [showMaskTyped]="true" [validation]="true" (keypress)="ChangeCreditMask()" [class.highlight]="
+                    PaymentCardNumber?.touched && PaymentCardNumber?.invalid
+                  " #ccNumberInputElm (input)="paymentTabNext($event, 'card')" />
+              </div>
+
+              <ng-container *ngIf="PaymentCardNumber?.touched && PaymentCardNumber?.invalid">
+                <span class="error highlight" id="luhnCheckError" *ngIf="PaymentCardNumber?.errors?.luhnError">
+                  {{ "ENTERVALIDCARD" | translate }}
+                </span>
+              </ng-container>
+
+              <div class="d-flex align-items-center">
+                <ng-container *ngIf="
+                    !(
+                      PaymentCardNumber?.touched &&
+                      PaymentCardNumber?.valid &&
+                      paymentCardType
+                    )
+                  ">
+                  <div class="cards_type" id="cards_type">
+                    <img src="/assets/dist/img/demo_cards.svg" width="170" alt="" />
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="isDonorFundCard">
+                  <span class="cards_type" id="donorsfund">
+                    <img src="/assets/dist/img/metro-donors-fund.png" width="40" alt="" />
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="isPledgerCard">
+                  <span class="cards_type" id="pledger">
+                    <img src="/assets/dist/img/metro-pledger.png" width="40" alt="" />
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="isDiner">
+                  <span class="cards_type" id="discovercard">
+                    <img src="/assets/dist/img/metro-diners-club.svg" width="40" height="50" alt="" />
+                  </span>
+                </ng-container>
+              </div>
+              <div class="single_card_type">
+                <ng-container *ngIf="PaymentCardNumber?.touched && PaymentCardNumber?.valid">
+                  <ng-container *ngIf="paymentCardType === 'Amex'">
+                    <span id="ameriexpcard">
+                      <img src="/assets/dist/img/american-express-card2.png" width="170" alt="" />
+                    </span>
+                  </ng-container>
+
+                  <ng-container *ngIf="paymentCardType === 'Visa'">
+                    <span id="visa">
+                      <img src="/assets/dist/img/metro-visa.png" width="170" alt="" />
+                    </span>
+                  </ng-container>
+
+                  <ng-container *ngIf="paymentCardType === 'Master'">
+                    <span id="mastercard">
+                      <img src="/assets/dist/img/metro-mastercard.png" width="170" alt="" />
+                    </span>
+                  </ng-container>
+
+                  <ng-container *ngIf="paymentCardType === 'Discover'">
+                    <span id="discovercard">
+                      <img src="/assets/dist/img/discover-card.png" width="170" alt="" />
+                    </span>
+                  </ng-container>
+
+                  <ng-container *ngIf="paymentCardType === 'Matbia'">
+                    <span id="discovercard">
+                      <img src="/assets/dist/img/matbia-card.png" width="170" alt="" />
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+            <div class="col-3 colm_block" [@swingTrigger]="needToAnimate(PaymentExp)">
+              <label for="expiry_date">{{ "EXP" | translate }}</label>
+              <input type="tel" name="expiry_date" id="expiry_date" [placeholder]="'MMYY' | translate"
+                class="form-control validexp required" formControlName="exp" [mask]="ExpMaskValue" [validation]="true"
+                [class.highlight]="PaymentExp?.touched && PaymentExp?.invalid" #ccExpInputElm
+                (input)="paymentTabNext($event, 'exp')" />
+
+              <ng-container *ngIf="PaymentExp?.touched && PaymentExp?.invalid">
+                <span *ngIf="PaymentExp?.errors?.expInvalid" class="error highlight" id="expvalidmsg">{{ "ENTERVALIDEXP"
+                  | translate }}</span>
+              </ng-container>
+            </div>
+            <div class="col-3 colm_block" id="cvv_block" [@swingTrigger]="needToAnimate(PaymentCVV)"
+              *ngIf="isCvvVisible">
+              <label for="cvv">{{ "CVV" | translate }}</label>
+              <input type="tel" name="cvv" id="cvv" class="form-control required" formControlName="cvv"
+                [mask]="CVVmaskvalue" [validation]="true" [class.highlight]="PaymentCVV?.touched && PaymentCVV?.invalid"
+                #ccCVVInputElm />
+            </div>
+          </div>
+        </div>
+        <ng-template [ngTemplateOutlet]="note"></ng-template>
+      </div>
+
+      <div class="next_action pt-4 text-center">
+        <button type="button" class="btn btn-primary" (click)="onPaymentClick(thankYouModalContent)" [disabled]="
+            donorInfoFormGroup.valid &&
+            teamSelectionFormGroup.valid &&
+            donateAmountFormGroup.valid &&
+            isCompleteClicked
+          ">
+          <ng-container *ngIf="
+              donorInfoFormGroup.valid &&
+                teamSelectionFormGroup.valid &&
+                donateAmountFormGroup.valid;
+              else nxtLabel
+            ">
+            <span class="next-span">{{ "COMPLETE" | translate }}</span>
+          </ng-container>
+          <ng-template #nxtLabel>
+            <span class="next-span">{{ "NEXT" | translate }}</span>
+          </ng-template>
+          <span class="material-icons"> arrow_forward </span>
+          <!-- <span class="icon arrow-right">
+          <img src="/assets/dist/img/donate-right-arrow.svg" alt="" />
+        </span> -->
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template #note>
+      <div [formGroup]="paymentFormGroup">
+        <div class="add_note">
+          <label for="note">{{ labelText === "ADDNOTE" ? (labelText | translate) : labelText }}
+          </label>
+          <input type="text" class="note_input form-control" name="note" id="note" formControlName="note"
+            [class.highlight]="PaymentNote?.touched && PaymentNote?.invalid" />
+        </div>
+
+        <!-- <div class="add_note" *ngIf="this.commonMethodService.isBaisHillel()">
+            <label for="note" dir="rtl" style="width: 225px">
+              פאר'ן סכום פון $36 און העכער שרייבט דא אריין אייער קוויטל געפועלט
+              אלעס גוטס!</label
+            >
+            <textarea
+              cols="30"
+              rows="10"
+              type="text"
+              class="note_input_reb_shaya form-control"
+              name="note"
+              id="note"
+              formControlName="note"
+              style="resize: none; height: 94px"
+              [class.highlight]="PaymentNote?.touched && PaymentNote?.invalid"
+              (keydown.enter)="$event.stopPropagation()"
+              (keyup.enter)="$event.stopPropagation()"
+              (keypress.enter)="$event.stopPropagation()"
+            ></textarea>
+          </div> -->
+      </div>
+    </ng-template>
+
+    <ng-template #teamHover>
+      <div class="on_hover_content">
+        <div class="team-info search-teams">
+          <div class="team-top">
+            <div class="back_button">
+              <img src="/assets/dist/img/back_arrow.svg" width="20" height="20" alt="" />
+            </div>
+            <p appIsHebrew [content]="teamHoverDetails?.reasonName">
+              {{ teamHoverDetails?.reasonName }}
+            </p>
+
+            <span class="donarCount">{{ teamHoverDetails?.donors }} Donors</span>
+          </div>
+          <div class="team-bottom">
+            <span>{{ "FUNDRAISED" | translate }}:
+              <strong>{{
+                commonMethodService.formatAmount(
+                teamHoverDetails?.raised,
+                currency
+                )
+                }}</strong>
+            </span>
+
+            <span class="g_text">
+              {{ "GOAL" | translate }}:
+              <strong>
+                {{
+                commonMethodService.formatAmount(
+                teamHoverDetails?.goal,
+                currency
+                )
+                }}
+              </strong>
+            </span>
+          </div>
+
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" [style.width]="
+                commonMethodService.getProgressBarWidth(
+                  teamHoverDetails?.totalPayment
+                )
+              " aria-valuemax="100" aria-valuemin="0"></div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #detailContent let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title">{{ donatePageData?.campaignName }}</h5>
+        <button type="button" class="btn-close dismiss" aria-label="Close" (click)="modal.close()">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="">{{ donatePageData?.campaignDescription }}</p>
+      </div>
+    </ng-template>
+
+    <ng-template #amountIncreaseContent let-modal>
+      <div class="modal-header">
+        <button type="button" class="btn-close dismiss" (click)="modal.dismiss(false)">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="amount_main">
+          <p *ngIf="
+              DonateAmount?.value <
+              commonMethodService.convertToNumber(totalDonation)
+            ">
+            <strong><i>{{ "DONATIONAMOUNTINCREASED" | translate }}</i></strong>
+          </p>
+          <p *ngIf="
+              DonateAmount?.value >
+              commonMethodService.convertToNumber(totalDonation)
+            ">
+            <strong><i>{{ "DONATIONAMOUNTDECREASED" | translate }}</i></strong>
+          </p>
+          <div class="amount" id="success_amount">
+            <p>
+              {{ "TO" | translate }}
+              {{ commonMethodService.formatAmount(totalDonation, currency) }}
+            </p>
+          </div>
+          <img src="/assets/dist/img/Increase2.svg" style="
+              height: 30%;
+              width: 30%;
+              margin-top: 20px;
+              margin-bottom: 20px;
+            " />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss(false)">
+          {{ "CANCEL" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close(true)">
+          {{ "CONTINUE" | translate }}
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template #scheduleContent let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "SHEDULERECURRING" | translate }}
+        </h4>
+        <button type="button" class="btn-close dismiss" aria-label="Close" (click)="modal.close()">
+          &times;
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form id="form_recurring" name="form_recurring" class="form-horizontal isautovalid"
+          [formGroup]="recurringFormGroup">
+          <div class="form-group d-flex donation_amount" [@swingTrigger]="needToAnimate(RecurringAmount)">
+            <label>{{ "DONATIONAMOUNT" | translate }}:</label>
+            <div class="input_group">
+              <span [ngClass]="commonMethodService.currencyClass"></span>
+              <input type="tel" class="form-control required" formControlName="amount" mask="separator.2"
+                thousandSeparator="," [validation]="true" [separatorLimit]="separatorLimit" [class.highlight]="
+                  RecurringAmount?.touched && RecurringAmount?.invalid
+                " (focusout)="onRecurringAmountAdd($event)" />
+            </div>
+          </div>
+          <div class="grey_box schedule-recurring-field" [@swingTrigger]="needToAnimate(RecurringCount)">
+            <div class="form-group d-flex">
+              <label>{{ "COUNT" | translate }}:</label>
+              <div class="input_group">
+                <span class="icon">
+                  <img src="/assets/dist/img/count_icon.svg" width="20" height="20" alt="" />
+                </span>
+                <input type="tel" class="form-control required" mask="separator.0" separatorLimit="100"
+                  formControlName="count" [class.highlight]="
+                    RecurringCount?.touched && RecurringCount?.invalid
+                  " />
+              </div>
+            </div>
+            <div class="form-group d-flex" [@swingTrigger]="needToAnimate(RecurringAmountPerPayment)">
+              <label>{{ "AMOUNTPERPAYMENT" | translate }}:</label>
+              <div class="input_group">
+                <span [ngClass]="commonMethodService.currencyClass"></span>
+                <input type="tel" class="form-control required" formControlName="amountPerPayment" mask="separator.2"
+                  thousandSeparator="," [validation]="true" [separatorLimit]="separatorLimit" [class.highlight]="
+                    RecurringAmountPerPayment?.touched &&
+                    RecurringAmountPerPayment?.invalid
+                  " (focusout)="onRecurringAmountPerPaymentAdd($event)" />
+              </div>
+            </div>
+
+            <!-- <div class="form-group d-flex">
+                      <label>Frequency:</label>
+                      <div class="custom_select input_group">
+                          <select name="frequency" id="frequency" class="form-control required SelectBox"
+                              formControlName="frequency"
+                              [class.highlight]="RecurringFrequency?.touched && RecurringFrequency?.invalid">
+                              <ng-container *ngFor="let item of commonMethodService.localscheduleRepatTypeList">
+                                  <option [value]="item.id">{{ item.itemName}}</option>
+                              </ng-container>
+                          </select>
+                      </div>
+                  </div> -->
+
+            <div class="form-group d-flex" [@swingTrigger]="needToAnimate(RecurringFrequency)">
+              <label>{{ "FREQUENCY" | translate }}:</label>
+              <div class="custom_select input_group" [class.highlight]="
+                  RecurringFrequency?.touched && RecurringFrequency?.invalid
+                ">
+                <ng-select bindLabel="value" bindValue="settingId" formControlName="frequency"
+                  [items]="frequencyListOptions" [selectOnTab]="true" [searchable]="false">
+                  <ng-template ng-option-tmp let-item="item">
+                    {{ item.value }}
+                  </ng-template>
+                </ng-select>
+              </div>
+            </div>
+
+            <!-- <div class="form-group d-flex flex-wrap field-start-date"
+                      [@swingTrigger]="needToAnimate(RecurringDate)">
+                      <label>Start Date:</label>
+                      <div class="input_group">
+                          <span class="icon">
+                              <img src="/assets/dist/img/calendar.svg" width="20" height="20" alt="" />
+                          </span>
+                          <input type="text" class="form-control date-picker required" readonly ngxDaterangepickerMd
+                              formControlName="transDate" [minDate]="minDate" [drops]="datepickerDrops"
+                              [singleDatePicker]="true" [closeOnAutoApply]="true" [autoApply]="true"
+                              [class.highlight]="RecurringDate?.touched && RecurringDate?.invalid">
+                      </div>
+                  </div> -->
+          </div>
+        </form>
+
+        <!-- {{ recurringFormGroup.value | json }} -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel_button" class="btn btn-secondary" data-dismiss="modal"
+          (click)="onCancelRecurring(modal)">
+          <ng-container *ngIf="RecurringAmount?.value">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </ng-container>
+          <ng-container *ngIf="!RecurringAmount?.value">
+            {{ "CANCEL" | translate }}
+          </ng-container>
+        </button>
+        <button type="button" class="btn btn-primary" (click)="onSaveRecurring(modal, scheduleIncreaseContent)">
+          {{ "SAVE" | translate }}
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template #scheduleIncreaseContent let-modal>
+      <div class="modal-header">
+        <button type="button" class="btn-close dismiss" (click)="modal.dismiss(false)">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <div>
+          <h2>{{ "SHEDULEAMOUNTINCREASE" | translate }}</h2>
+          <h2 id="increased_schedule_amount">
+            {{
+            commonMethodService.formatAmount(RecurringAmount?.value, currency)
+            }}
+          </h2>
+        </div>
+        <div>
+          <h6>
+            <i>{{ "MATCHAMOUNTSHEDULE" | translate }}</i>
+          </h6>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss(false)">
+          {{ "CANCEL" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close(true)">
+          {{ "CONTINUE" | translate }}
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template #thankYouModalContent let-modal>
+      <div class="modal-header">
+        <button type="button" class="btn-close dismiss" (click)="modal.close(true)">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <ng-container *ngIf="paymentSuccess">
+          <div class="highlight_text">
+            <p class="icon">
+              <img src="/assets/dist/images/payment_thanku.svg" alt="" />
+            </p>
+            <h3>{{ "THANKYOU" | translate }}</h3>
+          </div>
+          <div class="amount_main">
+            <p>{{ "YOURDONATION" | translate }}</p>
+            <div class="amount">
+              {{
+              commonMethodService.formatAmount(DonateAmount?.value, currency)
+              }}
+            </div>
+            <p>{{ "SUCCESSFULLYPROCESSED" | translate }}</p>
+          </div>
+          <div class="note_info">
+            {{ "EMAILRECEIPT" | translate }}
+            <strong>
+              <span id="success_email">{{ DonorInfoEmail?.value }}</span>
+            </strong>
+            {{ "PLEASESAVERECORD" | translate }}
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="!paymentSuccess">
+          <div class="highlight_text">
+            <p class="icon">
+              <img src="/assets/dist/images/payment_declined.svg" alt="" />
+            </p>
+            <h3 class="error" id="error_msg">{{ "DECLINED" | translate }}</h3>
+          </div>
+          <div class="amount_main">
+            <p>
+              <span id="declined_msg">{{ paymentError }}</span> <br />{{
+              "TRYAGAIN" | translate
+              }}
+            </p>
+          </div>
+          <div class="btn btn-primary return_btn mt-4 mb-4" data-dismiss="modal" (click)="modal.close(true)">
+            {{ "RETURNCARDINFO" | translate }}
+            <span class="icon arrow-right"><img src="/assets/dist/img/donate-right-arrow.svg" alt="" /></span>
+          </div>
+        </ng-container>
+      </div>
+    </ng-template>
+
+    <div *ngIf="isLoading" class="card-overlay donate-overlay">
+      <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+    </div>
+
+    <ng-template #reasonNameEng let-item="item">
+      <p appIsHebrew [content]="item.reasonName">
+        {{ item.reasonName }}
+      </p>
+    </ng-template>
+  </ng-container>
+  <ng-container *ngIf="commonMethodService.error404 || !isReasonExist">
+    <div class="page_not_found">
+      <div class="not-found text-center">
+        <img src="/assets/dist/images/not-found.gif" alt="Not found Image" />
+      </div>
+      <h1>
+        {{
+        commonMethodService.error404
+        ? commonMethodService.error404
+        : "Error Invalid Reason"
+        }}
+      </h1>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #toiremView>
+  <app-toirem-donate-view></app-toirem-donate-view>
+</ng-template>
+
+<ng-template #sorting>
+  <div class="filter-sort d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center flex-fill">
+      <label>Sort by:</label>
+      <ng-select [searchable]="false" [(ngModel)]="sortBy" bindLabel="value" [items]="sortOptionsToDisplay"
+        (change)="updateSortBy()">
+        <ng-template ng-option-tmp let-item="item">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [checked]="item.value == sortBy.value" name="sortOption"
+              [value]="item.value" />
+            <label class="form-check-label" for="">{{ item.value }}</label>
+          </div>
+        </ng-template>
+      </ng-select>
+    </div>
+    <i (click)="changeSortDirection()">
+      @if(sortDirection == 'desc'){
+      <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M3.72579 0.636232C3.72579 0.467493 3.6604 0.305664 3.54401 0.186347C3.42762 0.0670308 3.26976 0 3.10516 0C2.94056 0 2.78271 0.0670308 2.66632 0.186347C2.54993 0.305664 2.48454 0.467493 2.48454 0.636232V11.8258L1.06153 10.366C0.943915 10.2522 0.787629 10.1898 0.625871 10.1922C0.464113 10.1945 0.309629 10.2615 0.195237 10.3787C0.0808445 10.496 0.0155581 10.6544 0.0132471 10.8202C0.0109361 10.986 0.0717823 11.1462 0.18286 11.2668L2.66536 13.8108L2.67383 13.8195C2.79038 13.9361 2.94717 14.0007 3.11001 13.9992C3.27285 13.9978 3.42853 13.9304 3.54309 13.8117L6.02558 11.2668C6.1421 11.1475 6.20761 10.9856 6.2077 10.8168C6.20779 10.6479 6.14245 10.486 6.02605 10.3665C5.90966 10.2471 5.75175 10.1799 5.58705 10.1798C5.42236 10.1797 5.26438 10.2467 5.14786 10.366L3.72579 11.8258V0.636232ZM8.07016 1.9087C8.07016 1.73996 8.13555 1.57813 8.25194 1.45881C8.36833 1.3395 8.52619 1.27246 8.69079 1.27246H17.3805C17.5451 1.27246 17.7029 1.3395 17.8193 1.45881C17.9357 1.57813 18.0011 1.73996 18.0011 1.9087C18.0011 2.07743 17.9357 2.23926 17.8193 2.35858C17.7029 2.4779 17.5451 2.54493 17.3805 2.54493H8.69079C8.60928 2.54493 8.52858 2.52847 8.45328 2.4965C8.37799 2.46452 8.30957 2.41766 8.25194 2.35858C8.19431 2.2995 8.14859 2.22936 8.1174 2.15217C8.08621 2.07498 8.07016 1.99225 8.07016 1.9087ZM8.69079 5.09468C8.52619 5.09468 8.36833 5.16171 8.25194 5.28103C8.13555 5.40035 8.07016 5.56218 8.07016 5.73092C8.07016 5.89966 8.13555 6.06148 8.25194 6.1808C8.36833 6.30012 8.52619 6.36715 8.69079 6.36715H14.897C15.0616 6.36715 15.2195 6.30012 15.3359 6.1808C15.4523 6.06148 15.5177 5.89966 15.5177 5.73092C15.5177 5.56218 15.4523 5.40035 15.3359 5.28103C15.2195 5.16171 15.0616 5.09468 14.897 5.09468H8.69079ZM8.69079 8.91207C8.52619 8.91207 8.36833 8.9791 8.25194 9.09842C8.13555 9.21774 8.07016 9.37957 8.07016 9.54831C8.07016 9.71705 8.13555 9.87887 8.25194 9.99819C8.36833 10.1175 8.52619 10.1845 8.69079 10.1845H12.4145C12.5791 10.1845 12.737 10.1175 12.8534 9.99819C12.9698 9.87887 13.0352 9.71705 13.0352 9.54831C13.0352 9.37957 12.9698 9.21774 12.8534 9.09842C12.737 8.9791 12.5791 8.91207 12.4145 8.91207H8.69079ZM8.69079 12.7295C8.52619 12.7295 8.36833 12.7965 8.25194 12.9158C8.13555 13.0351 8.07016 13.197 8.07016 13.3657C8.07016 13.5344 8.13555 13.6963 8.25194 13.8156C8.36833 13.9349 8.52619 14.0019 8.69079 14.0019H9.93204C10.0966 14.0019 10.2545 13.9349 10.3709 13.8156C10.4873 13.6963 10.5527 13.5344 10.5527 13.3657C10.5527 13.197 10.4873 13.0351 10.3709 12.9158C10.2545 12.7965 10.0966 12.7295 9.93204 12.7295H8.69079Z"
+          fill="#434246" />
+      </svg>
+      } @else{
+      <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M8.06982 1.90869C8.06982 1.73995 8.13521 1.57813 8.2516 1.45881C8.36799 1.33949 8.52585 1.27246 8.69045 1.27246H17.3801C17.5447 1.27246 17.7026 1.33949 17.819 1.45881C17.9354 1.57813 18.0008 1.73995 18.0008 1.90869C18.0008 2.07743 17.9354 2.23926 17.819 2.35858C17.7026 2.47789 17.5447 2.54492 17.3801 2.54492H8.69045C8.60895 2.54492 8.52824 2.52847 8.45295 2.49649C8.37765 2.46452 8.30923 2.41766 8.2516 2.35858C8.19397 2.2995 8.14826 2.22936 8.11707 2.15217C8.08588 2.07498 8.06982 1.99224 8.06982 1.90869ZM8.69045 5.09468C8.52585 5.09468 8.36799 5.16171 8.2516 5.28103C8.13521 5.40034 8.06982 5.56217 8.06982 5.73091C8.06982 5.89965 8.13521 6.06148 8.2516 6.1808C8.36799 6.30011 8.52585 6.36714 8.69045 6.36714H14.8967C15.0613 6.36714 15.2192 6.30011 15.3355 6.1808C15.4519 6.06148 15.5173 5.89965 15.5173 5.73091C15.5173 5.56217 15.4519 5.40034 15.3355 5.28103C15.2192 5.16171 15.0613 5.09468 14.8967 5.09468H8.69045ZM8.69045 8.91207C8.52585 8.91207 8.36799 8.9791 8.2516 9.09842C8.13521 9.21773 8.06982 9.37956 8.06982 9.5483C8.06982 9.71704 8.13521 9.87887 8.2516 9.99819C8.36799 10.1175 8.52585 10.1845 8.69045 10.1845H12.4142C12.5788 10.1845 12.7367 10.1175 12.853 9.99819C12.9694 9.87887 13.0348 9.71704 13.0348 9.5483C13.0348 9.37956 12.9694 9.21773 12.853 9.09842C12.7367 8.9791 12.5788 8.91207 12.4142 8.91207H8.69045ZM8.69045 12.7295C8.52585 12.7295 8.36799 12.7965 8.2516 12.9158C8.13521 13.0351 8.06982 13.197 8.06982 13.3657C8.06982 13.5344 8.13521 13.6963 8.2516 13.8156C8.36799 13.9349 8.52585 14.0019 8.69045 14.0019H9.9317C10.0963 14.0019 10.2542 13.9349 10.3705 13.8156C10.4869 13.6963 10.5523 13.5344 10.5523 13.3657C10.5523 13.197 10.4869 13.0351 10.3705 12.9158C10.2542 12.7965 10.0963 12.7295 9.9317 12.7295H8.69045Z"
+          fill="#434246" />
+        <path
+          d="M2.48173 13.363C2.48173 13.5318 2.54712 13.6936 2.66351 13.8129C2.7799 13.9322 2.93776 13.9993 3.10236 13.9993C3.26696 13.9993 3.42481 13.9322 3.5412 13.8129C3.65759 13.6936 3.72298 13.5318 3.72298 13.363L3.72298 2.17346L5.14599 3.63322C5.2636 3.7471 5.41989 3.80947 5.58165 3.8071C5.74341 3.80473 5.89789 3.73781 6.01228 3.62054C6.12668 3.50327 6.19196 3.3449 6.19427 3.17907C6.19658 3.01325 6.13574 2.85303 6.02466 2.73246L3.54216 0.188496L3.53368 0.179808C3.41714 0.0632106 3.26035 -0.00141256 3.09751 3.43323e-05C2.93467 0.00148123 2.77899 0.06888 2.66443 0.187531L0.181935 2.73246C0.0654166 2.85178 -9.19403e-05 3.01366 -0.000180244 3.1825C-0.000268549 3.35134 0.0650708 3.51329 0.181465 3.63274C0.297859 3.75219 0.455772 3.81935 0.620466 3.81944C0.78516 3.81953 0.943144 3.75255 1.05966 3.63322L2.48173 2.17346L2.48173 13.363Z"
+          fill="#434246" />
+      </svg>
+      }
+    </i>
+  </div>
+</ng-template>

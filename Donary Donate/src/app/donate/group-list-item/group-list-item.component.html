@@ -1,0 +1,90 @@
+<li class="all_group_class">
+  <div class="team-info search-groups is-groups" [class.showExpand]="isOpen" [class.no-funds-goals]="isOpen">
+    <div class="team-bottom">
+      <span class="g_text">
+        {{ "GOAL" | translate }}:
+        <strong>{{ commonMethodService.formatAmount(item.goal) }}</strong>
+      </span>
+    </div>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" [style.width]="
+          commonMethodService.getProgressBarWidth(item.totalPayment)
+        " aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+
+    <div class="donation_expand">
+      <div class="donarList">
+        <ul>
+          <ng-template [ngTemplateOutlet]="donateReasonTmp" [ngTemplateOutletContext]="{ drItem: item }"></ng-template>
+        </ul>
+      </div>
+    </div>
+  </div>
+</li>
+
+<ng-template #donateReasonTmp>
+  <li>
+    <div class="team-info search-teams-ingroup team-info-ingroup" [class.showExpand]="
+        isOpenInGroup && selectedReasonInGroup === item.reasonId
+      " [class.no-funds-goals]="
+        isOpenInGroup && selectedReasonInGroup === item.reasonId
+      ">
+      <div class="team-top" (click)="onToggleInGroup(item.reasonId)">
+        <div class="back_button_ingroup">
+          <img src="/assets/dist/img/back_arrow.svg" width="20" height="20" alt="" />
+        </div>
+        <span class="open_button">
+          <img src="/assets/dist/img/down-trigger.png" width="20" height="20" alt="" />
+        </span>
+        <p appIsHebrew [content]="
+            (displayLang == 'English' || displayLang == null) ? item.reasonName : item.reasonNameJewish==null?item.reasonName : item.reasonNameJewish
+          ">
+          {{
+          (displayLang == 'English' || displayLang == null) ? item.reasonName :
+          item.reasonNameJewish==null?item.reasonName :
+          item.reasonNameJewish
+          }}
+        </p>
+        <span class="donarCount">{{ item.donorsCount }} {{ "DONORS" | translate }}</span>
+      </div>
+
+      <div class="team-bottom">
+        <span>{{ "FUNDRAISED" | translate }}:
+          <strong>{{ commonMethodService.formatAmount(item.raised) }}</strong>
+        </span>
+        <span class="g_text">{{ "GOAL" | translate }}:
+          <strong>{{ commonMethodService.formatAmount(item.goal) }}</strong>
+        </span>
+      </div>
+
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" [style.width]="
+            commonMethodService.getProgressBarWidth(item.totalPayment)
+          " aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+
+      <div class="donation_expand_donors">
+        <div appIsHebrew class="headerBar" [content]="
+            ((!commonMethodService.isHebrew) || (displayLang == 'English' || displayLang==null))? item.reasonName : item.reasonNameJewish==null?item.reasonName : item.reasonNameJewish
+          ">
+          {{
+          ((!commonMethodService.isHebrew) || (displayLang == 'English' || displayLang==null))? item.reasonName :
+          item.reasonNameJewish==null?item.reasonName :
+          item.reasonNameJewish
+          }}
+        </div>
+        <div class="donarList" *ngIf="listDonateDonors.length !== 0">
+          <ul>
+            <ng-container *ngIf="listDonateDonors && listDonateDonors.length !== 0">
+              <ng-container *ngFor="let ddItem of listDonateDonors">
+                <ng-container *ngIf="ddItem.reasonId === item.reasonId">
+                  <li app-donate-donor-list-item [item]="ddItem"></li>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </li>
+</ng-template>

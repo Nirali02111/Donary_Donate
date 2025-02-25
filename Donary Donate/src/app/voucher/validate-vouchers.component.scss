@@ -1,0 +1,201 @@
+@import "../../assets/dist/scss/style";
+
+/* Section Voucher
+======================================================*/
+.section-voucher {
+  padding-top: 40px;
+
+  @include responsive(md) {
+    padding-top: 20px;
+  }
+}
+
+.box-brand {
+  border: 1px solid var(--bs-gray);
+  padding: 40px 55px;
+  width: 100%;
+
+  @include prefix(box-shadow, 0px 8px 20px rgba(var(--bs-black-rgb), 0.08));
+
+  h2 {
+    margin-bottom: 28px;
+  }
+
+  ul {
+    margin: -7px;
+    padding-top: 15px;
+    padding-bottom: 22px;
+
+    li {
+      padding: 7px;
+      flex: 0 0 auto;
+      width: 25%;
+
+      input:checked {
+        & + label {
+          background-color: var(--bs-light);
+          border-color: var(--bs-secondary);
+
+          @include prefix(
+            box-shadow,
+            0px 10px 15px rgba(var(--bs-gray-rgb-400), 0.12)
+          );
+
+          svg {
+            path {
+              fill: var(--bs-secondary);
+            }
+          }
+        }
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(var(--bs-black-rgb), 0.05);
+        height: 70px;
+        border: 1px solid transparent;
+        cursor: pointer;
+
+        @extend .transition;
+        @extend .rounded-md;
+
+        img {
+          max-width: 81px;
+          max-height: 33px;
+        }
+      }
+    }
+  }
+
+  .box-brand-scan {
+    background-color: var(--bs-light);
+    padding: 30px 46px 40px;
+
+    label {
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      padding-left: 70px;
+      background-image: url("/assets/dist/img/icon-scan.svg");
+      background-size: 30px;
+      background-position: left 20px center;
+      background-repeat: no-repeat;
+    }
+  }
+
+  @include responsive(xxxl) {
+    padding: 20px 20px;
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    ul {
+      padding-top: 10px;
+      padding-bottom: 14px;
+    }
+
+    .box-brand-scan {
+      padding: 20px 20px;
+
+      label {
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  @include responsive(md) {
+    ul {
+      margin: -3px;
+
+      li {
+        padding: 3px;
+        width: 50%;
+      }
+    }
+  }
+
+  @include responsive(sm) {
+    padding: 20px 20px 0;
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    ul {
+      padding-bottom: 20px;
+    }
+
+    .box-brand-scan {
+      margin-left: -20px;
+      margin-right: -20px;
+
+      .form-control {
+        padding-left: 40px;
+        padding-right: 10px;
+        background-image: url("/assets/dist/img/image-scan.jpg");
+        background-size: 20px;
+        background-position: left 10px center;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}
+
+.box-scan {
+  flex: 0 0 auto;
+  width: 46.5%;
+  padding-top: 24px;
+  padding-bottom: 118px;
+  background-color: var(--bs-gray-400);
+  @include clamp("margin-left", 40px, 5vw, 80px);
+
+  @include responsive(xxxl) {
+    padding-top: 20px;
+    padding-bottom: 98px;
+  }
+
+  @include responsive(xl) {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  @include responsive(sm) {
+    margin-left: 0;
+    padding-bottom: 124px;
+  }
+}
+
+.box-invalid {
+  margin-bottom: 40px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border: 1px solid rgba(var(--bs-danger-rgb), 0.2);
+  background-color: var(--bs-danger-bg-subtle);
+
+  .total {
+    color: var(--bs-danger);
+
+    sup {
+      font-size: 50%;
+      top: 1em;
+    }
+  }
+
+  .box-body {
+    padding-bottom: 16px !important;
+  }
+
+  @include responsive(xxxl) {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+
+  @include responsive(xl) {
+    height: 300px;
+  }
+}

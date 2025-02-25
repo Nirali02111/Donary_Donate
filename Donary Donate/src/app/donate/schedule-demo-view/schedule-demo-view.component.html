@@ -1,0 +1,71 @@
+<div class="page_wrapper">
+    <div class="hero-section schedule-demo-wrap">
+        <div class="header">
+            <div class="container">
+                <nav class="navbar justify-content-between navbar-expand-lg bg-light">
+                    <a class="navbar-brand" href="#" [routerLink]="['/']">
+                        <img src="/assets/img/donate/donary-logo.svg" width="150" class="logo-img" alt="" />
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse form-inline my-2 my-lg-0" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" [href]="ProductAndPlanLink">
+                                    {{'PRODUCTSPLAN' | translate}}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link calendy_link" href="#" [routerLink]="getScheduleDemoRoute()"
+                                    id="calendyHeader">
+                                    {{'SHEDULEDEMO' | translate}}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" [routerLink]="getDonateRoute()" fragment="contact"
+                                    id="contact_link1">
+                                    {{'CONTACT' | translate}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a class="nav-link user" href="https://drm.donary.com/" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                        </svg>
+                    </a>
+                </nav>
+            </div>
+        </div>
+        <div class="section contact">
+            <div class="container direction-column text-center">
+                <div class="title_section">
+                    <p class="schedule-title">{{'SHEDULEDEMO' | translate}}</p>
+                    <h3>{{'SHEDULEDEMOMETTING' | translate}}</h3>
+                </div>
+                <div class="contact-section">
+                    <div class="calendly-inline-widget"
+                        data-url="https://calendly.com/donary/15min?text_color=21263d&primary_color=7B5BC4"
+                        style="min-width:320px;height:750px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="copyright">
+                    &copy; {{currentYear}} Donary.com <span>
+                        {{ 'SMARTFOUNDRAISING' | translate }} <sup>
+                            {{'TM' | translate }}</sup></span>
+                </div>
+                <div class="links">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

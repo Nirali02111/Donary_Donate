@@ -1,0 +1,23 @@
+<main>
+	<section class="section-scan text-center">
+		<h1 class="h2">Scan Vouchers</h1>
+		<form [formGroup]="loginFormGroup" (ngSubmit)="login()" (keyup.enter)="login()">
+			<div class="small-container">
+				<div class="mb-4">
+					<label for="campaign" class="form-label">Enter your campaign #:</label>
+					<input type="text" class="form-control text-center" id="campaign" placeholder="0000000" formControlName="campaignNum" [class.error-field]="CampaignNum?.touched && CampaignNum?.invalid"
+					[class.is-invalid]="isSubmitted && CampaignNum?.invalid">
+
+					<div *ngIf="isSubmitted && CampaignNum?.invalid">
+						<span class="invalid-feedback" style="display: block">Campaign Number is required</span>
+					</div>
+				</div>
+				<div class="mb-4">
+					<label for="phone" class="form-label">Enter the last 4 digits of your phone #:</label>
+					<input type="text" class="form-control text-center" id="phone" placeholder="0000" formControlName="last4OfPhone">
+				</div>
+				<button type="submit" class="btn btn-secondary w-100" [class.button-loading]="isLoading" >Login</button>
+			</div>
+		</form>
+	</section>
+</main>

@@ -1,0 +1,73 @@
+<li class="all_team_class">
+  <div class="team-info search-teams" [class.showExpand]="isOpen" [class.no-funds-goals]="isOpen">
+    <div class="team-top">
+      <div class="back_button" (click)="onCollapse()">
+        <img src="/assets/dist/img/back_arrow.svg" width="20" height="20" alt="" />
+      </div>
+
+      @if (isExpandable) {
+      <span class="open_button" (click)="onExpand()">
+        <img src="/assets/dist/img/down-trigger.png" width="20" height="20" alt="" />
+      </span>
+      }
+
+      <p appIsHebrew [content]="
+         (displayLang === 'English' || displayLang == null) ? item.reasonName : item.reasonNameJewish ==null? item.reasonName : item.reasonNameJewish
+        ">
+        {{ (displayLang === 'English' || displayLang == null) ?
+        item.reasonName : item.reasonNameJewish == null? item.reasonName :
+        item.reasonNameJewish }}
+      </p>
+
+      @if (item.donors && item.donors > 0) {
+      <span class="donarCount">{{ item.donors }} {{ "DONORS" | translate }}</span>
+      }
+    </div>
+
+    @if (item.raised && item.raised > 0 || item.goal && item.goal > 0 || isOpen)
+    {
+
+    <div class="team-bottom">
+      @if ((item.raised && item.raised > 0)) {
+      <span>
+        {{ "FUNDRAISED" | translate }}:
+        <strong>
+          {{ commonMethodService.formatAmount(item.raised) }}
+        </strong>
+      </span>
+      } @if (item.goal && item.goal > 0) {
+      <span class="g_text">{{ "GOAL" | translate }}:
+        <strong>
+          {{ commonMethodService.formatAmount(item.goal) }}
+        </strong>
+      </span>
+      }
+    </div>
+    } @if (item.goal && item.goal > 0) {
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" [style.width]="
+          commonMethodService.getProgressBarWidth(item.totalPayment)
+        " aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    }
+
+    <div class="donation_expand">
+      <div appIsHebrew class="headerBar" [content]="
+         ((!commonMethodService.isHebrew) || (displayLang === 'English' || displayLang==null))  ? item.reasonName : item.reasonNameJewish==null?item.reasonName : item.reasonNameJewish
+        ">
+        {{ ((!commonMethodService.isHebrew) || (displayLang === 'English' || displayLang==null))? item.reasonName :
+        item.reasonNameJewish==null?item.reasonName :
+        item.reasonNameJewish }}
+      </div>
+      <div class="donarList">
+        <ul>
+          @if (listDonateDonors && listDonateDonors.length !== 0) { @for (ddItem
+          of listDonateDonors; track $index) { @if (ddItem.reasonId ===
+          item.reasonId) {
+          <li app-donate-donor-list-item [item]="ddItem"></li>
+          } } }
+        </ul>
+      </div>
+    </div>
+  </div>
+</li>

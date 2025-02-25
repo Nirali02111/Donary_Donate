@@ -1,0 +1,591 @@
+<main>
+  <section class="section-toirem w-100" *ngIf="!cardActivation.processing && !cardActivation.invoice">
+    <div class="container d-flex flex-wrap align-items-start flex-column flex-lg-row">
+      <div class="data-aside">
+        <ul class="d-flex flex-column">
+          <li>
+            <small [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}">{{ "DONATETO" | translate }}:</small>
+            <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}">{{ "CAMPAIGN#" | translate }}
+              {{commonMethodService.isHebrew ? '#' : ''}} {{ campaignNumber }}</label>
+            <span>{{ campaignName }}</span>
+          </li>
+          <li *ngIf="!cardActivation.donationAmount">
+            <small [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}">{{ "AMOUNT" | translate }}:</small>
+            <h5 (click)="toggleActiveCard('donationAmount')">
+              {{ DonateAmount?.value || 0 | currency : currency }}
+              <a href="javascript:void(0)" title="Edit"><svg xmlns=" http://www.w3.org/2000/svg" width="15.736"
+                  height="15.736" viewBox="0 0 15.736 15.736">
+                  <g id="edit-1_duotone" transform="translate(-31.4 -23.4)">
+                    <path id="Path_22529" data-name="Path 22529"
+                      d="M43.971,29.985l2.565-2.565L43.115,24,40.55,26.565m3.42,3.42-8.55,8.55H32v-3.42l8.55-8.55m3.42,3.42-3.42-3.42"
+                      fill="none" stroke="#3f94bf" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" />
+                  </g>
+                </svg>
+              </a>
+            </h5>
+            <span class="info" *ngIf="repeatDonation.value">
+              <a href="javascript:void(0)" title="Reload"><svg xmlns="http://www.w3.org/2000/svg" width="15.695"
+                  height="15.2" viewBox="0 0 15.695 15.2">
+                  <g id="refresh_outline" transform="translate(-23.153 -23.4)" opacity="0.62">
+                    <path id="Path_22530" data-name="Path 22530"
+                      d="M24,24v4.667m0,0h4.667m-4.667,0c1.81-1.624,3.487-3.464,6.024-3.821a7,7,0,0,1,7.364,4.071M38,38V33.333m0,0H33.333m4.667,0c-1.81,1.624-3.487,3.464-6.024,3.821a7,7,0,0,1-7.365-4.071"
+                      transform="translate(0 0)" fill="none" stroke="#3a4757" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="1.2" />
+                  </g>
+                </svg>
+              </a>
+              Recurring
+              {{
+              frequencyListOptions[RecurringFrequency?.value - 1].value ==
+              "Weekly"
+              ? "every " + (RecurringDate?.value | date : "EEEE")
+              : frequencyListOptions[RecurringFrequency?.value - 1].value
+              }}
+              Starting {{ RecurringDate?.value | date : "MM/dd/yyyy" }} <br />
+              {{ RecurringCount?.value }} times <br />
+              <strong>Total: {{(DonateAmount?.value * RecurringCount?.value) | currency : currency}}</strong>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="data-box">
+        <div class="box-toirem" *ngIf="cardActivation.donationAmount">
+          <div class="form-group form-group-lg" [formGroup]="donateAmountFormGroup">
+            <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for=""
+              class="form-label form-label-lg text-center">{{ "ENTERDONATIONAMOUNT" | translate }}:</label>
+
+            <div class="position-relative">
+              <ng-template [ngTemplateOutlet]="typeSelection"></ng-template>
+              <input class="form-control form-control-lg" type="text" formControlName="amount"
+                [placeholder]="symbol + '0'" [value]="DonateAmount?.value" [validation]="true" mask="separator.2"
+                thousandSeparator="," [separatorLimit]="separatorLimit" (focusout)="onAmountAdd($event)" [ngClass]="{
+                  'err-border':
+                    (donationFormSubmitted || DonateAmount?.touched) &&
+                    DonateAmount?.errors
+                }" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for=""
+              class="form-label form-label-lg text-center">{{ "ORSELECTPRESETAMOUNT" | translate }}:</label>
+
+            <div class="form-check-group d-flex flex-wrap" *ngIf="donatePageData && donatePageData.lstEventAmount">
+              <ng-container *ngFor="
+                  let item of donatePageData.lstEventAmount;
+                  let i = index
+                ">
+                <div class="form-check">
+                  <input class="form-check-input" [value]="item.number" type="radio" name="preset-amt" (click)="
+                      formatAmt$.next(item.number.toString());
+                      isScheduleRecurringDonation = false
+                    " id="radio-{{ i }}" />
+                  <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" class="form-check-label" [ngClass]="{
+                      'preset-amt': item.number == DonateAmount?.value
+                    }" for="radio-{{ i }}">{{
+                    item.number | currency : currency : "symbol" : "1.0-0"
+                    }}</label>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <hr />
+          <div class="form-group d-flex align-items-center mb-3">
+            <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="repeatDonation"
+              class="form-label w-auto mb-0 form-label-lg text-center mr-3">{{
+              "REPEATDONATION" | translate }}:</label>
+            <div class="form-switch d-flex">
+              <input class="form-check-input" type="checkbox" role="switch" id="repeatDonation" checked
+                [formControl]="repeatDonation" />
+            </div>
+          </div>
+
+          <div class="pt-3" *ngIf="repeatDonation.value" [formGroup]="recurringFormGroup">
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="frequency" class="form-label">{{
+                    "FREQUENCY" | translate }}:</label>
+                  <div class="custom_select input_group" [class.highlight]="
+                        (donationFormSubmitted ||
+                          RecurringFrequency?.touched) &&
+                        RecurringFrequency?.errors &&
+                        repeatDonation.value">
+                    <ng-select bindValue="settingId" bindLabel="value" [items]="frequencyListOptions"
+                      aria-label="Default select example" formControlName="frequency">
+                      <ng-template ng-option-tmp let-item="item">
+                        {{ item.value }}
+                      </ng-template>
+                    </ng-select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="count" class="form-label">{{
+                    "COUNT(TIMES)" | translate }}:</label>
+                  <input (keypress)="numberOnly($event)" type="tel" class="form-control" id="count" placeholder="Count"
+                    formControlName="count" [ngClass]="{
+                      'err-border':
+                        (donationFormSubmitted || RecurringCount?.touched) &&
+                        RecurringCount?.errors &&
+                        repeatDonation.value
+                    }" maxlength="3" />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="start-date" class="form-label">{{
+                    "STARTDATE" | translate }}:</label>
+                  <input type="date" class="form-control" id="start-date" placeholder="Start Date"
+                    formControlName="startDate" [ngClass]="{
+                      'err-border':
+                        (donationFormSubmitted || RecurringDate?.touched) &&
+                        RecurringDate?.errors &&
+                        repeatDonation.value
+                    }" />
+                </div>
+              </div>
+              <div class="col-6" *ngIf="DonateAmount?.value && RecurringFrequency?.value">
+                <div class="form-group">
+                  <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" class="form-label">&nbsp;</label>
+                  <span class="text-count-amount d-inline-block w-100 text-center">{{ DonateAmount?.value || 0 |
+                    currency :
+                    currency }} on
+                    {{
+                    frequencyListOptions[RecurringFrequency?.value - 1].value ==
+                    "Weekly"
+                    ? "every " + (RecurringDate?.value | date : "EEEE")
+                    : frequencyListOptions[RecurringFrequency?.value - 1].value
+                    }} <br />
+                    <small>Total {{(DonateAmount?.value * RecurringCount?.value) | currency : currency}}</small>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary" (click)="gotoDonorInfo()">
+            {{ "CONTINUE" | translate }} <i class="fa fa-angle-right"></i>
+          </button>
+        </div>
+
+        <div class="box-toirem box-toirem-small" *ngIf="cardActivation.donorInfo">
+          <h4>{{ "DONORINFO" | translate }}</h4>
+
+          <div class="row" [formGroup]="donorInfoFormGroup">
+            <div class="col-6">
+              <div class="form-group">
+                <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="first-name" class="form-label">{{
+                  "FIRSTNAME" | translate }}: *</label>
+                <input type="text" class="form-control" id="first-name" formControlName="FirstName"
+                  placeholder="{{ 'FIRSTNAME' | translate }}" [ngClass]="{
+                    'err-border':
+                      (donorInfoFormSubmitted || DonorInfoFirstName?.touched) &&
+                      DonorInfoFirstName?.errors
+                  }" />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="last-name" class="form-label">{{
+                  "LASTNAME" | translate }}: *</label>
+                <input type="text" class="form-control" id="last-name" formControlName="LastName"
+                  placeholder="{{ 'LASTNAME' | translate }}" [ngClass]="{
+                    'err-border':
+                      (donorInfoFormSubmitted || DonorInfoLastName?.touched) &&
+                      DonorInfoLastName?.errors
+                  }" />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="phone" class="form-label">{{
+                  "PHONENUMBER" | translate }}: *</label>
+                <input type="text" class="form-control" id="phone" formControlName="PhoneNumber"
+                  [placeholder]="'PHONENUMBER' | translate" [ngClass]="{
+                    'err-border':
+                      (donorInfoFormSubmitted ||
+                        DonorInfoPhoneNumber?.touched) &&
+                      DonorInfoPhoneNumber?.errors
+                  }" [validation]="true" (keyup.enter)="getDonorInfoByPhone()" (keyup)="phoneZerosValidation()"
+                  [mask]="cardMask" />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="address" class="form-label">{{
+                  "ADDRESS" | translate }}:</label>
+                <input appAddressAutocomplete type="text" class="form-control" id="address" formControlName="StreetName"
+                  placeholder="{{ 'STREETADDRESS' | translate }}" (onAddressChange)="onAddressChange($event)" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="city" class="form-label">{{ "CITY" |
+                  translate }}:</label>
+                <input type="text" class="form-control" id="city" formControlName="City"
+                  placeholder="{{ 'CITY' | translate }}" />
+              </div>
+            </div>
+            <div class="col-5 col-md-3">
+              <div class="form-group">
+                <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="state" class="form-label">{{ "STATE"
+                  | translate }}:</label>
+                <select class="form-control" aria-label="Default select example" formControlName="State"
+                  placeholder="Select" placeholder="State">
+                  <option selected value="">{{ "STATE" | translate }}</option>
+                  <option *ngFor="let state of statesList" [value]="state.item_id">
+                    {{ state.item_id }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-5 col-md-3">
+              <div class="form-group">
+                <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="zip" class="form-label">{{ "ZIP" |
+                  translate }}:</label>
+                <input type="text" class="form-control" id="zip" formControlName="Zip"
+                  placeholder="{{ 'ZIP' | translate }}" />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="d-flex flex-column">
+                  <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for=" email" class="form-label mb-0">{{
+                    "EMAILADDRESS" | translate }}:</label>
+                  <small [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" class="mb-1">{{
+                    "DONATIONRECIPTWILLBESENTTOTHISEMAIL" | translate
+                    }}</small>
+                </div>
+                <input type="email" class="form-control" id="email" formControlName="Email"
+                  placeholder="{{ 'EMAILADDRESS' | translate }}" />
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" (click)="gotoPaymentCard()">
+            {{ "CONTINUE" | translate }} <i class="fa fa-angle-right"></i>
+          </button>
+        </div>
+
+        <div class="box-toirem box-toirem-small" *ngIf="cardActivation.paymentMethod">
+          <h4>{{ "DONORINFO" | translate }}</h4>
+          <a href="javascript:void(0)" class="icon-edit" (click)="toggleActiveCard('donorInfo')">
+            <svg _ngcontent-ng-c797608722="" xmlns=" http://www.w3.org/2000/svg" width="15.736" height="15.736"
+              viewBox="0 0 15.736 15.736" class="ng-tns-c797608722-1">
+              <g _ngcontent-ng-c797608722="" id="edit-1_duotone" transform="translate(-31.4 -23.4)"
+                class="ng-tns-c797608722-1">
+                <path _ngcontent-ng-c797608722="" id="Path_22529" data-name="Path 22529"
+                  d="M43.971,29.985l2.565-2.565L43.115,24,40.55,26.565m3.42,3.42-8.55,8.55H32v-3.42l8.55-8.55m3.42,3.42-3.42-3.42"
+                  fill="none" stroke="#3f94bf" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
+                  class="ng-tns-c797608722-1"></path>
+              </g>
+            </svg>
+          </a>
+
+          <ng-template [ngTemplateOutlet]="donorInfo"></ng-template>
+
+          <hr />
+          <h4>{{ "PAYMENTMETHOD" | translate }}</h4>
+          <div class="row" [formGroup]="paymentFormGroup">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="card-number" class="form-label">{{
+                  "CARDNUMBER" | translate }}:</label>
+                <div class="position-relative">
+                  <div class="d-flex align-items-center">
+                    <ng-container *ngIf="isDonorFundCard">
+                      <span class="cards_type" id="donorsfund">
+                        <img src="/assets/dist/img/metro-donors-fund.png" width="40" alt="" />
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="isPledgerCard">
+                      <span class="cards_type" id="pledger">
+                        <img src="/assets/dist/img/metro-pledger.png" width="40" alt="" />
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="isDiner">
+                      <span class="cards_type" id="discovercard">
+                        <img src="/assets/dist/img/metro-diners-club.svg" width="40" height="50" alt="" />
+                      </span>
+                    </ng-container>
+                  </div>
+                  <div class="single_card_type">
+                    <ng-container *ngIf="PaymentCardNumber?.touched && PaymentCardNumber?.valid">
+                      <ng-container *ngIf="paymentCardType === 'Amex'">
+                        <span id="ameriexpcard">
+                          <img src="/assets/dist/img/american-express-card2.png" width="170" alt="" />
+                        </span>
+                      </ng-container>
+
+                      <ng-container *ngIf="paymentCardType === 'Visa'">
+                        <span id="visa">
+                          <img src="/assets/dist/img/metro-visa.png" width="170" alt="" />
+                        </span>
+                      </ng-container>
+
+                      <ng-container *ngIf="paymentCardType === 'Master'">
+                        <span id="mastercard">
+                          <img src="/assets/dist/img/metro-mastercard.png" width="170" alt="" />
+                        </span>
+                      </ng-container>
+
+                      <ng-container *ngIf="paymentCardType === 'Discover'">
+                        <span id="discovercard">
+                          <img src="/assets/dist/img/discover-card.png" width="170" alt="" />
+                        </span>
+                      </ng-container>
+
+                      <ng-container *ngIf="paymentCardType === 'Matbia'">
+                        <span id="discovercard">
+                          <img src="/assets/dist/img/matbia-card.png" width="170" alt="" />
+                        </span>
+                      </ng-container>
+
+                    </ng-container>
+                  </div>
+                  <input type="text" class="form-control form-control-icon-end" id="card-number"
+                    placeholder="Enter your card number" formControlName="cardNumber" [ngClass]="{
+                      'err-border':
+                        (paymentFormSubmitted || PaymentCardNumber?.touched) &&
+                        PaymentCardNumber?.errors
+                    }" [mask]="maskValue" [showMaskTyped]="true" [validation]="true"
+                    (input)="paymentTabNext($event, 'card')" />
+                </div>
+              </div>
+            </div>
+            <div class="col-5 col-md-4">
+              <div class="form-group">
+                <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="exp-date" class="form-label">{{
+                  "EXP." | translate }} {{ "DATE" | translate }}:</label>
+                <input type="text" class="form-control" id="exp-date" placeholder="MM / YY" formControlName="exp"
+                  [ngClass]="{
+                    'err-border':
+                      (paymentFormSubmitted || PaymentExp?.touched) &&
+                      PaymentExp?.errors
+                  }" [mask]="ExpMaskValue" [validation]="true" #ccExpInputElm
+                  (input)="paymentTabNext($event, 'exp')" />
+              </div>
+            </div>
+            <div class="col-5 col-md-4">
+              <div class="form-group" *ngIf="isCvvVisible">
+                <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="card-cvv" class="form-label">{{
+                  "CVV" | translate }}:</label>
+                @if(showInput){
+                <input type="text" class="form-control" id="card-cvv" formControlName="cvv" (input)="toggleInput()"
+                  placeholder="{{ 'CVV' | translate }}" [ngClass]="{
+                    'err-border':
+                      (paymentFormSubmitted || PaymentCVV?.touched) &&
+                      PaymentCVV?.errors
+                  }" [mask]="CVVmaskvalue" [validation]="true" #ccCVVInputElm />
+                }
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" (click)="onPaymentClick()">
+            {{ "DONATE" | translate }}
+          </button>
+        </div>
+      </div>
+
+      @if(campaignImages && campaignImages.length > 0){
+      <ul class="image-gallery flex-fill">
+        @for (image of campaignImages; track $index) {
+        <li>
+          <figure (click)="openImageViewer($index)">
+            <img [src]="image" alt="image">
+            <i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="26.305" height="25.776" viewBox="0 0 26.305 25.776">
+                <g id="Group_3134" data-name="Group 3134" transform="translate(-43 -43)">
+                  <path id="Path_22549" data-name="Path 22549"
+                    d="M32.613,21.32A11.293,11.293,0,1,0,43.906,32.613,11.293,11.293,0,0,0,32.613,21.32Zm0,20.619a9.411,9.411,0,1,1,9.411-9.326A9.411,9.411,0,0,1,32.613,41.939Z"
+                    transform="translate(21.68 21.68)" fill="#fff" />
+                  <path id="Path_22550" data-name="Path 22550"
+                    d="M140.223,135.557l-4.865-4.865a12.874,12.874,0,0,1-1.308,1.393l4.847,4.847a.941.941,0,0,0,1.327-1.327Z"
+                    transform="translate(-71.145 -68.381)" fill="#fff" />
+                  <path id="Path_22551" data-name="Path 22551"
+                    d="M63.652,58.005H59.888V54.241a.941.941,0,0,0-1.882,0v3.764H54.241a.941.941,0,0,0,0,1.882h3.764v3.764a.941.941,0,0,0,1.882,0V59.888h3.764a.941.941,0,0,0,0-1.882Z"
+                    transform="translate(-4.654 -4.653)" fill="#fff" />
+                </g>
+              </svg>
+            </i>
+          </figure>
+        </li>
+        }
+      </ul>
+      }
+
+      @else{
+      <div class="data-aside d-none d-xl-inline-block"></div>
+      }
+    </div>
+  </section>
+
+  <section *ngIf="cardActivation.processing"
+    class="section-loader d-flex align-content-lg-center flex-wrap justify-content-center">
+    <div class="loader-wrapper d-flex align-items-lg-center justify-content-start position-relative">
+      <span class="process-text d-flex flex-column flex-lg-row align-items-center justify-content-start">
+        <span class="process-text-data text-right">{{
+          DonorInfoFirstName?.value +" "+ DonorInfoLastName?.value
+          }}</span>
+        <span class="line"></span>
+        <span class="process-circle-space"></span>
+        <span class="line line-arrow"></span>
+        <span class="process-text-data">{{ "CAMPAIGN#" | translate }} {{commonMethodService.isHebrew ? '#' : ''}} {{
+          campaignNumber }} </span>
+      </span>
+
+      <div class="loader d-flex flex-wrap align-content-center text-center">
+        <div class="loader-data d-flex flex-column w-100">
+          <h5>{{ DonateAmount?.value | currency : currency }}</h5>
+          <div class="d-flex align-items-center">
+            <ng-container *ngIf="
+                      !(
+                        PaymentCardNumber?.touched &&
+                        PaymentCardNumber?.valid &&
+                        paymentCardType
+                      )
+                    ">
+              <div class="cards_type" id="cards_type">
+                <img src="/assets/dist/img/demo_cards.svg" width="170" alt="" />
+              </div>
+            </ng-container>
+            <ng-container *ngIf="isDonorFundCard">
+              <span class="cards_type" id="donorsfund">
+                <img src="/assets/dist/img/metro-donors-fund.png" width="40" alt="" />
+              </span>
+            </ng-container>
+            <ng-container *ngIf="isPledgerCard">
+              <span class="cards_type" id="pledger">
+                <img src="/assets/dist/img/metro-pledger.png" width="40" alt="" />
+              </span>
+            </ng-container>
+            <ng-container *ngIf="isDiner">
+              <span class="cards_type" id="discovercard">
+                <img src="/assets/dist/img/metro-diners-club.svg" width="40" height="50" alt="" />
+              </span>
+            </ng-container>
+          </div>
+          <div class="single_card_type">
+            <ng-container *ngIf="PaymentCardNumber?.touched && PaymentCardNumber?.valid">
+              <ng-container *ngIf="paymentCardType === 'Amex'">
+                <span id="ameriexpcard">
+                  <img src="/assets/dist/img/american-express-card2.png" width="170" alt="" />
+                </span>
+              </ng-container>
+
+              <ng-container *ngIf="paymentCardType === 'Visa'">
+                <span id="visa">
+                  <img src="/assets/dist/img/metro-visa.png" width="170" alt="" />
+                </span>
+              </ng-container>
+
+              <ng-container *ngIf="paymentCardType === 'Master'">
+                <span id="mastercard">
+                  <img src="/assets/dist/img/metro-mastercard.png" width="170" alt="" />
+                </span>
+              </ng-container>
+
+              <ng-container *ngIf="paymentCardType === 'Discover'">
+                <span id="discovercard">
+                  <img src="/assets/dist/img/discover-card.png" width="170" alt="" />
+                </span>
+              </ng-container>
+
+              <ng-container *ngIf="paymentCardType === 'Matbia'">
+                <span id="discovercard">
+                  <img src="/assets/dist/img/matbia-card.png" width="170" alt="" />
+                </span>
+              </ng-container>
+
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="text-process w-100 text-center">{{ "PROCCESSING" | translate }}...</span>
+  </section>
+
+  <section class="section-success" *ngIf="cardActivation.invoice">
+    <div class="container">
+      <i class="icon-success">
+        <svg xmlns="http://www.w3.org/2000/svg" width="31.555" height="23.244" viewBox="0 0 31.555 23.244">
+          <path id="Path_22540" data-name="Path 22540" d="M20587.715,5940.734l8.311,8.309,20.416-20.416"
+            transform="translate(-20586.301 -5927.213)" fill="none" stroke="#3fbf7b" stroke-linecap="round"
+            stroke-width="2" />
+        </svg>
+      </i>
+
+      <h1>{{ "THANKYOUFORYOURDONATION" | translate }}</h1>
+      <h2>{{ DonateAmount?.value | currency : currency }}</h2>
+
+      <div class="success-box">
+        <small [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}">{{ "DONOR" | translate }}:</small>
+        <ng-template [ngTemplateOutlet]="donorInfo"></ng-template>
+
+        <small [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}">METHOD:</small>
+        <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for=""> {{ refNum }}</label>
+
+        <small [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}">{{ "DONATETO" | translate }}:</small>
+        <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}" for="">{{ "CAMPAIGN#" | translate
+          }}{{commonMethodService.isHebrew ? '#' : ''}}{{ campaignNumber }}</label>
+        <span>{{ campaignName }}</span>
+      </div>
+      <div class="d-flex flex-column">
+        <a href="javascript:void(0)" (click)="reloadPage()" title="Close" class="link mx-auto">{{
+          "CLOSE" | translate }}</a>
+      </div>
+    </div>
+  </section>
+</main>
+<ng-template #donorInfo>
+  <address class="d-flex flex-column">
+    <label [ngClass]="{'rtl-lang' : commonMethodService.isHebrew}">{{
+      DonorInfoFirstName?.value + " " + DonorInfoLastName?.value
+      }}</label>
+    <span>{{ DonorInfoPhoneNumber?.value }} <br *ngIf="DonorInfoStreetName?.value ||
+    DonorInfoCity?.value ||
+    DonorInfoState?.value ||
+    DonorInfoZip?.value" />
+      {{
+      (DonorInfoStreetName?.value || "") +
+      " " +
+      (DonorInfoCity?.value || "") +
+      " " +
+      (DonorInfoState?.value || "") +
+      " " +
+      (DonorInfoZip?.value || "")
+      }}<br *ngIf="DonorInfoEmail?.value" />
+      {{ DonorInfoEmail?.value }}</span>
+  </address>
+</ng-template>
+
+<div *ngIf="showToast" class="toast-container position-fixed p-3" style="top: 0; right: 0">
+  <ngb-toast [autohide]="true" [delay]="7000" class="toast-danger" (hidden)="showToast = false" #ngbToast>
+    <ng-template [ngTemplateOutlet]="dangerTpl"></ng-template>
+  </ngb-toast>
+</div>
+
+<ng-template #dangerTpl>
+  <img src="../../../assets/img/cross-Icon.svg" alt="" (click)="hideToast()" />
+  {{ paymentError }}
+</ng-template>
+
+<ng-template #typeSelection>
+  <!--code for showing currencies functionality started -->
+  <div class="d-flex justify-content-center align-items-center flex-column add-currency"
+    *ngIf="!donatePageData?.totalDonors">
+    <span (click)="currencyDropdown.open()"> {{ symbol }}</span>
+    <ng-select bindLabel="currencyName" #currencyDropdown bindValue="currencyName" [(ngModel)]="_currency"
+      [items]="currencies" (change)="updateSymbol()" [searchable]="false">
+      <ng-template ng-option-tmp let-item="item">
+        <div>
+          <div>
+            {{ item.currencyName }}
+            <span>{{ getCurrencySymbol(item.currencyName) }}</span>
+          </div>
+        </div>
+      </ng-template>
+    </ng-select>
+  </div>
+  <!--code for showing currencies functionality ended -->
+</ng-template>

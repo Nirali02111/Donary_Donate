@@ -1,0 +1,437 @@
+.container.range-plugin {
+  border-radius: 6px;
+  left: -22vw !important;
+}
+.container.preset-plugin > main.preset-left {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  padding: 0;
+  padding-top: 0;
+}
+
+.calendar {
+  background: #fff;
+  border-radius: 20px;
+  margin: 0 6px;
+}
+.calendar > .header button {
+  background: #fff 0% 0% no-repeat padding-box;
+  border-radius: 50%;
+  width: 37px;
+  height: 37px;
+}
+.calendar > .header button path {
+  fill: #625f69;
+}
+.calendar > .header .month-name {
+  order: 1;
+  text-align: center;
+}
+.calendar > .header button.next-button {
+  order: 2;
+}
+.container.amp-plugin .calendars.calendars:not(.grid-1) .calendar>.header .reset-button svg{overflow: initial;}
+
+.container.range-plugin .calendar > .days-grid > .day {
+  font-size: 16px;
+  font-family: "FbShefaRegular";
+  color: #474748;
+  border: 1px solid #e5e5e5;
+  max-height: none;
+  max-width: none;
+  padding: 0;
+  height: auto;
+  width: auto;
+  border-radius: 0;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 4px;
+  min-width: 50px;
+  margin-top: -1px;
+  margin-right: -1px;
+  cursor: pointer;
+}
+
+.container.range-plugin .calendar > .days-grid > .day.end,
+.container.range-plugin .calendar > .days-grid > .day.start {
+  background-color: #7B5BC4;
+}
+.container.range-plugin .calendar > .days-grid > .day.start:after {
+  border-left: 8px solid #7B5BC4;
+  opacity: 0;
+}
+.container.range-plugin .calendar > .days-grid > .day.end:after {
+  border-right: 8px solid #7B5BC4;
+  opacity: 0;
+}
+.calendar > .daynames-row,
+.calendar > .days-grid {
+  row-gap: 0px;
+}
+
+.container.range-plugin .calendar > .days-grid > .day.end.flipped {
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 0;
+}
+.container.range-plugin .calendar > .days-grid > .day.start.flipped {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 50%;
+  border-top-left-radius: 0;
+  border-top-right-radius: 50%;
+}
+.container.range-plugin .calendar > .days-grid > .day.in-range {
+  background-color: #7B5BC4;
+  color: #fff;
+}
+.container.range-plugin .calendars .dayname {
+  font: normal normal normal 18px/24px "FbShefaRegular";
+  letter-spacing: 0px;
+  color: #c1c1c1;
+}
+.calendar > .header .month-name > span {
+  font-weight: inherit;
+  color: #625F69;
+  font-size: 16px;
+}
+.calendar > .header .month-name {
+  font: normal normal bold 18px/29px "FbShefaRegular";
+  letter-spacing: 0px;
+  color: #1a1f35;
+}
+.preset-plugin-container .preset-button .preset-radio-button:before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border: 1px solid #1976d2;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 3px;
+}
+.preset-plugin-container .preset-button .preset-radio-button:after {
+  content: "";
+  transition: 0.3s;
+}
+.preset-plugin-container .preset-button.active .preset-radio-button:after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border: 1px solid #1976d2;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  background: #1976d2;
+  transform: scale(0.6);
+}
+.container.preset-plugin > main.preset-left .preset-plugin-container {
+  position: relative;
+}
+.container.preset-plugin
+  > main.preset-left
+  .preset-plugin-container
+  .preset-button {
+  background: transparent;
+  text-align: left;
+  font: normal normal 300 14px/22px "FbShefaRegular";
+  letter-spacing: 0px;
+  color: #091136;
+  position: relative;
+  margin-bottom: 0px;
+  width: 100%;
+  border-radius: 0;
+  padding: 2px;
+  padding-left: 21px;
+  margin-bottom: 8px;
+  border: 0;
+}
+.container > footer .footer-buttons > button.apply-button {
+  border-color: transparent;
+  color: #fff;
+  border-radius: 3px;
+  background: #785ec1 0% 0% no-repeat padding-box !important;
+  font: normal normal normal 20px/29px;
+  width: 145px;
+  line-height: normal;
+  border-color: #785ec1 !important;
+  transition: 0.3s;
+}
+.container > footer .footer-buttons > button.apply-button:disabled {
+  opacity: 0.5 !important;
+}
+/* .container > footer .footer-buttons .cancel-button {
+  letter-spacing: 0px;
+  position: absolute;
+  top: 13px;
+  border: 0;
+  background: transparent !important;
+  color: rgba(0, 0, 0, 0) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  right: 16px;
+}
+.container > footer .footer-buttons .cancel-button:before {
+  content: "";
+  background: url("../images/icon-close.svg") no-repeat;
+  width: 16px;
+  height: 16px;
+  display: block;
+  background-size: cover;
+  opacity: 0.4;
+  position: absolute;
+}
+ */
+.container > footer .footer-buttons {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  order: 3;
+}
+.container.preset-plugin > main.preset-left .preset-plugin-container {
+  width: 180px;
+  padding: 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background: #fff;
+  padding-right: 0;
+  border-right: 1px solid #DEDEDE;
+  padding-top: 30px;
+}
+
+.preset-plugin-container > button:hover {
+  border-color: transparent !important;
+}
+
+.container > footer,
+.container > header {
+  background-color: #fff;
+  padding: 20px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.header-row .container.range-plugin {
+  left: -113px !important;
+}
+
+
+.calendar > .header .reset-button:hover,
+.container > footer .footer-buttons > button.apply-button:hover {
+  opacity: 0.7;
+}
+.container.range-plugin .calendar>.days-grid>.day.start span,
+.container.range-plugin .calendar > .days-grid > .day.in-range span,
+.container.range-plugin .calendar > .days-grid > .day span {
+  font-weight: normal !important;
+}
+.calendar > .header .month-name > span span:nth-child(2) {
+  font-family: "Avenir";
+  margin-left: 5px;
+}
+.calendars:not(.grid-1) .calendar>.header .previous-button svg,
+.calendars:not(.grid-1) .calendar>.header .next-button svg{opacity: 0;}
+.calendars:not(.grid-1) .calendar>.header .previous-button{
+  background: url(/assets/dist/img/cal-arrow.png) no-repeat;
+  background-position: center;
+  background-size: 10px;
+}
+.calendars:not(.grid-1) .calendar>.header .next-button{
+  background: url(/assets/dist/img/cal-arrow-next.png) no-repeat;
+  background-position: center;
+  background-size: 10px;
+}
+.container.preset-plugin > main.preset-left .preset-plugin-container .preset-button:hover{background:#7B5BC4;color: #fff;}
+
+
+.footertext label{
+  width: 100%;
+  display: block;
+}
+.footertext .date-eng{}
+.footertext .date-hebrew{}
+
+
+.footertext label {
+  width: 100%;
+  display: block;
+  font-weight: 500;
+  color: #A9A8AD;
+  margin-bottom: 3px;
+}
+.footertext .date-eng {
+  background: #F7F5FB 0% 0% no-repeat padding-box;
+  border: 1px solid #BFB0E1;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 2px 11px;
+  color: #7b7b7b;
+  min-height: 30px;
+  min-width: 90px;
+}
+.footertext .date-hebrew {
+  background: #FAFAFA 0% 0% no-repeat padding-box;
+  border: 1px solid #D8D8D8;
+  border-radius: 3px;
+  padding: 3px 15px;
+  font: normal normal 16px/22px "FbShefaRegular";
+  position: relative;
+  margin-left: 15px;
+  min-width: 170px;
+}
+.footertext .date-hebrew:before {
+  content: '';
+  width: 15px;
+  height: 2px;
+  background: #D8D8D8;
+  position: absolute;
+  left: -16px;
+  top: 15px;
+}
+.footertext {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  justify-content: flex-end;
+  order: 1;
+}
+
+.range-plugin footer {
+  display: flex;
+  flex-direction: column;
+}
+.footertext .start-date-item {
+  margin-right: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 300px;
+} 
+.footertext .end-date-item{
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 342px;
+}
+.footertext .end-date-item .date-eng:after {
+  content: "\f017";
+  font-family: "Font Awesome 5 Free";
+  color: #7560be;
+  margin-left: 10px;
+}
+.preset-plugin .switch{
+  width: 100px;
+    height: 30px;
+    position: relative;
+    order: 3;
+    top: -28px;
+}
+.preset-plugin .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.preset-plugin .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+}
+.preset-plugin .slider.round {
+  border-radius: 34px !important;
+}
+.preset-plugin .global_list_togle .slider {
+  background-color: #CECECE;
+}
+.preset-plugin input:checked + .slider {
+  background-color: #CFC8E0;
+}
+.preset-plugin .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 50px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #7B5BC4;
+  transition: 0.4s;
+}
+.preset-plugin .slider.round:before {
+  border-radius: 20px;
+}
+.preset-plugin .slider:before {
+  content: "";
+  line-height: 28px;
+  text-align: center;
+  color: #A0A0A0;
+}
+.preset-plugin .switch span.item-1, .preset-plugin .switch span.item-2 {
+  position: relative;
+  font-size: 14px;
+  color: #474748;
+  font-weight: 500;
+  z-index: 1;
+  padding-top: 4px;
+  display: inline-block;
+}
+.preset-plugin .switch span.item-1 {
+  padding-left: 14px;
+}
+.preset-plugin .switch span.item-2 {
+  float: right;
+  padding-right: 12px;
+}
+.preset-plugin input:checked + .slider:before {
+  transform: translateX(46px);
+}
+.preset-plugin input:checked + .slider .item-2 {
+  color: #fff;
+} 
+.preset-plugin .switch input[type="checkbox"]:not(:checked) ~ .slider .item-1{ color: #fff;}
+.container > footer .footer-buttons .cancel-button {
+  letter-spacing: 0px;
+  position: absolute;
+  top: 3px;
+  border: 0;
+  background: transparent !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  right: 6px;
+  font-family: cursive;
+  font-size: 16px;
+  color: #000 !important;
+}
+.container > footer .footer-buttons .cancel-button:hover{
+  color: #363636 !important;
+}
+
+.calendar > .header .reset-button {
+  position: absolute;
+  bottom: 40px;
+  right: 177px;
+  border: 2px solid #363636;
+  border-radius: 2px;
+  padding: 5px 13px;
+  letter-spacing: 0px;
+  width: 115px;
+  height: 27px;
+  color: #c1c1c1;
+  background: #363636;
+}
+.calendar > .header .reset-button:hover{
+  background: #656565;
+  border-color: #656565;
+}
+
+.schedule-sticky-pop .next_paymnt_date .input_group .icon {
+  position: initial;
+}
